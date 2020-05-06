@@ -1,77 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:my_tameen/screens/main-screen.dart';
+import 'package:provider/provider.dart';
+import 'package:flare_splash_screen/flare_splash_screen.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+//Remove this method to stop OneSignal Debugging
+//   WidgetsFlutterBinding.ensureInitialized();
+//   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
+//   OneSignal.shared.init("34a10f05-fcb0-464e-bc8a-262bdb922960", iOSSettings: {
+//     OSiOSSettings.autoPrompt: false,
+//     OSiOSSettings.inAppLaunchUrl: false
+//   });
+//   OneSignal.shared
+//       .setInFocusDisplayType(OSNotificationDisplayType.notification);
 
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
+// // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 6)
+//   await OneSignal.shared
+//       .promptUserForPushNotificationPermission(fallbackToSettings: true);
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+  runApp(
+      // MultiProvider(
+      //     providers: [
+      //       ChangeNotifierProvider.value(
+      //         value: AllProvider(),
+      //       ),
+      //     ],
+      //     child:
+      MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'Haider alkarar Lab',
+    theme: ThemeData(
+      fontFamily: 'tajawal',
+      textTheme: TextTheme(
+          subtitle: TextStyle(
+              fontFamily: "akhand", fontSize: 20, color: Color(0xFF45B649))),
+      canvasColor: Color(0xFFecedf1),
+      primaryColor: Color(0xFF37d2b3),
+      accentColor: Color(0xFF546E7A),
+      bottomAppBarColor: Color(0xff313e4b),
+      appBarTheme: AppBarTheme(
+        color: Color(0xFF37d2b3),
+        textTheme: TextTheme(
+          title: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
+    ),
+    home: MainScreen(),
+
+    // SplashScreen.navigate(
+    //   name: 'assets/images/hairderLab.flr',
+    //   next: (_) => MainScreen(),
+    //   until: () => Future.delayed(Duration(seconds: 1)),
+    //   startAnimation: 'Untitled',
+    //   backgroundColor: Colors.white,
+    //   endAnimation: '1',
+    // ),
+    // routes: {
+    //   NewsPressedScreen.routeName: (ctx) => NewsPressedScreen(),
+    //   MainScreen.routeName: (ctx) => MainScreen(0),
+    // },
+  )
+      //),
+      );
 }
