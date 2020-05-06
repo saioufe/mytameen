@@ -33,10 +33,15 @@ void main() async {
     theme: ThemeData(
       fontFamily: 'tajawal',
       textTheme: TextTheme(
-          subtitle: TextStyle(
-              fontFamily: "akhand", fontSize: 20, color: Color(0xFF45B649))),
+        subtitle: TextStyle(
+          fontFamily: "tajawal",
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Color.fromRGBO(54, 86, 119, 1),
+        ),
+      ),
       canvasColor: Color(0xFFecedf1),
-      primaryColor: Color(0xFF37d2b3),
+      primaryColor: Color.fromRGBO(54, 86, 119, 1),
       accentColor: Color(0xFF546E7A),
       bottomAppBarColor: Color(0xff313e4b),
       appBarTheme: AppBarTheme(
