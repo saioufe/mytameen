@@ -29,13 +29,13 @@ void main() async {
       //     child:
       MaterialApp(
     debugShowCheckedModeBanner: false,
-    title: 'Haider alkarar Lab',
+    title: 'my tameen',
     theme: ThemeData(
       fontFamily: 'tajawal',
       textTheme: TextTheme(
         subtitle: TextStyle(
           fontFamily: "tajawal",
-          fontSize: 18,
+          fontSize: 16,
           fontWeight: FontWeight.bold,
           color: Color.fromRGBO(54, 86, 119, 1),
         ),

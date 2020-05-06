@@ -3,9 +3,11 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:my_tameen/insurance_icons_icons.dart';
 import 'package:my_tameen/screens/account-screen.dart';
-import 'package:my_tameen/screens/categories-screen.dart';
 import 'package:my_tameen/screens/home-screen.dart';
 import 'package:my_tameen/screens/offers-screen.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'myOrders-screen.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -13,7 +15,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 0;
+  int _currentIndex = 3;
   PageController _pageController;
 
   @override
@@ -31,6 +33,18 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Image.asset("assets/images/what.png"),
+        backgroundColor: Colors.transparent,
+        onPressed: () async {
+          final url = "https://wa.me/17273332751";
+          if (await canLaunch(url)) {
+            await launch(url);
+          } else {
+            throw 'Could not launch $url';
+          }
+        },
+      ),
       body: SizedBox.expand(
         child: PageView(
           controller: _pageController,
@@ -39,8 +53,8 @@ class _MainScreenState extends State<MainScreen> {
           },
           children: <Widget>[
             AccountScreen(),
+            MyOrdersScreen(),
             OffersScreen(),
-            CatergoriesScreen(),
             HomeScreen(),
           ],
         ),
@@ -63,41 +77,41 @@ class _MainScreenState extends State<MainScreen> {
           },
           items: <BottomNavyBarItem>[
             BottomNavyBarItem(
-                inactiveColor: Theme.of(context).primaryColor,
-                activeColor: Theme.of(context).primaryColor,
+                inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
+                activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 title: Text(
                   'حسابي',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.subtitle,
                 ),
-                icon: Icon(Entypo.man)),
+                icon: Icon(MaterialIcons.perm_identity)),
             BottomNavyBarItem(
-                inactiveColor: Theme.of(context).primaryColor,
-                activeColor: Theme.of(context).primaryColor,
+                inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
+                activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
+                title: Text(
+                  'طلباتي',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.subtitle,
+                ),
+                icon: Icon(MaterialIcons.bubble_chart)),
+            BottomNavyBarItem(
+                inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
+                activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 title: Text(
                   'العروض',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.subtitle,
                 ),
-                icon: Icon(Entypo.shop)),
+                icon: Icon(MaterialIcons.turned_in_not)),
             BottomNavyBarItem(
-                inactiveColor: Theme.of(context).primaryColor,
-                activeColor: Theme.of(context).primaryColor,
-                title: Text(
-                  'الفئات',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.subtitle,
-                ),
-                icon: Icon(Entypo.text_document_inverted)),
-            BottomNavyBarItem(
-                inactiveColor: Theme.of(context).primaryColor,
-                activeColor: Theme.of(context).primaryColor,
+                inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
+                activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 title: Text(
                   'الرئيسية',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.subtitle,
                 ),
-                icon: Icon(Entypo.home)),
+                icon: Icon(Icons.home)),
           ],
         ),
       ),
