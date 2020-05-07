@@ -83,6 +83,16 @@ flutter:
            weight: 300
          - asset: assets/fonts/Tajawal-ExtraLight.ttf
            weight: 200
+    - family: frutiger
+      fonts:
+         - asset: assets/fonts/FrutigerLTArabic55Roman.ttf
+         - asset: assets/fonts/FrutigerLTArabic65Bold.ttf
+           weight: 700
+         - asset: assets/fonts/frutigerltarabic75black.ttf
+           weight: 800
+         - asset: assets/fonts/FrutigerLTArabic45Light.ttf
+           weight: 400
+
     - family:  InsuranceIcons
       fonts:
          - asset: assets/icons/InsuranceIcons.ttf

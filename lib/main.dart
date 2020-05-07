@@ -31,10 +31,10 @@ void main() async {
     debugShowCheckedModeBanner: false,
     title: 'my tameen',
     theme: ThemeData(
-      fontFamily: 'tajawal',
+      fontFamily: 'frutiger',
       textTheme: TextTheme(
         subtitle: TextStyle(
-          fontFamily: "tajawal",
+          fontFamily: "frutiger",
           fontSize: 16,
           fontWeight: FontWeight.bold,
           color: Color.fromRGBO(54, 86, 119, 1),

@@ -22,6 +22,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _pageController = PageController();
+    //_pageController.jumpToPage(3);
   }
 
   @override
@@ -89,7 +90,7 @@ class _MainScreenState extends State<MainScreen> {
                 inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 title: Text(
-                  'طلباتي',
+                  'الاخبار',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.subtitle,
                 ),
@@ -98,7 +99,7 @@ class _MainScreenState extends State<MainScreen> {
                 inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 title: Text(
-                  'العروض',
+                  'الفئات',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.subtitle,
                 ),

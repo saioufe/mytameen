@@ -14,7 +14,7 @@ class SliderTemplate extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: CarouselSlider.builder(
         options: CarouselOptions(
-          height: 200,
+          height: 220,
           aspectRatio: 16 / 9,
           viewportFraction: 0.8,
           initialPage: 0,
@@ -23,7 +23,7 @@ class SliderTemplate extends StatelessWidget {
           autoPlay: true,
           autoPlayInterval: Duration(seconds: 3),
           autoPlayAnimationDuration: Duration(milliseconds: 800),
-          autoPlayCurve: Curves.easeInSine,
+          autoPlayCurve: Curves.easeInOutCirc,
           enlargeCenterPage: false,
           scrollDirection: Axis.horizontal,
         ),
@@ -51,8 +51,8 @@ class SliderTemplate extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               image: DecorationImage(
                 image: NetworkImage(
-                    "https://pandoradevs.com/images/slider/slide2.png"),
-                fit: BoxFit.fill,
+                    "https://pandoradevs.com/images/mytameen1.jpg"),
+                fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.circular(10)),
         )),
