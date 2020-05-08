@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_tameen/providers/allProvider.dart';
 import 'package:my_tameen/screens/main-screen.dart';
+import 'package:my_tameen/screens/pressed-news-screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flare_splash_screen/flare_splash_screen.dart';
 
@@ -27,47 +29,54 @@ void main() async {
       //       ),
       //     ],
       //     child:
-      MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: 'my tameen',
-    theme: ThemeData(
-      fontFamily: 'frutiger',
-      textTheme: TextTheme(
-        subtitle: TextStyle(
-          fontFamily: "frutiger",
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: Color.fromRGBO(54, 86, 119, 1),
-        ),
+      MultiProvider(
+    providers: [
+      ChangeNotifierProvider.value(
+        value: AllProvider(),
       ),
-      canvasColor: Color(0xFFecedf1),
-      primaryColor: Color.fromRGBO(54, 86, 119, 1),
-      accentColor: Color(0xFF546E7A),
-      bottomAppBarColor: Color(0xff313e4b),
-      appBarTheme: AppBarTheme(
-        color: Color(0xFF37d2b3),
+    ],
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'my tameen',
+      theme: ThemeData(
+        fontFamily: 'frutiger',
         textTheme: TextTheme(
-          title: TextStyle(
-            fontSize: 30,
+          subtitle: TextStyle(
+            fontFamily: "frutiger",
+            fontSize: 16,
             fontWeight: FontWeight.bold,
+            color: Color.fromRGBO(54, 86, 119, 1),
+          ),
+        ),
+        canvasColor: Color(0xFFecedf1),
+        primaryColor: Color.fromRGBO(54, 86, 119, 1),
+        accentColor: Color(0xFF546E7A),
+        bottomAppBarColor: Color(0xff313e4b),
+        appBarTheme: AppBarTheme(
+          color: Color(0xFF37d2b3),
+          textTheme: TextTheme(
+            title: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
-    ),
-    home: MainScreen(),
+      home: MainScreen(),
 
-    // SplashScreen.navigate(
-    //   name: 'assets/images/hairderLab.flr',
-    //   next: (_) => MainScreen(),
-    //   until: () => Future.delayed(Duration(seconds: 1)),
-    //   startAnimation: 'Untitled',
-    //   backgroundColor: Colors.white,
-    //   endAnimation: '1',
-    // ),
-    // routes: {
-    //   NewsPressedScreen.routeName: (ctx) => NewsPressedScreen(),
-    //   MainScreen.routeName: (ctx) => MainScreen(0),
-    // },
+      // SplashScreen.navigate(
+      //   name: 'assets/images/hairderLab.flr',
+      //   next: (_) => MainScreen(),
+      //   until: () => Future.delayed(Duration(seconds: 1)),
+      //   startAnimation: 'Untitled',
+      //   backgroundColor: Colors.white,
+      //   endAnimation: '1',
+      // ),
+      routes: {
+        NewsPressedScreen.routeName: (ctx) => NewsPressedScreen(),
+        // MainScreen.routeName: (ctx) => MainScreen(0),
+      },
+    ),
   )
       //),
       );

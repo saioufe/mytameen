@@ -49,13 +49,13 @@ class CategoryTemplate extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      InsuranceIcons.elderly,
-                      color: Theme.of(context).primaryColor,
-                      size: 55,
-                    ),
+                    Image.asset("assets/images/png/transport1.png" ,width: 50,height: 50,),
                     Text(
-                      "تامين السفر",
+                      "تامين ضد الغير ",
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      textDirection: TextDirection.rtl,
+                      maxLines: 2,
                       style: TextStyle(fontSize: 17),
                     )
                   ],

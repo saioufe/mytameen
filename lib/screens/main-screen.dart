@@ -3,7 +3,9 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:my_tameen/insurance_icons_icons.dart';
 import 'package:my_tameen/screens/account-screen.dart';
+import 'package:my_tameen/screens/categories-screen.dart';
 import 'package:my_tameen/screens/home-screen.dart';
+import 'package:my_tameen/screens/news-screen.dart';
 import 'package:my_tameen/screens/offers-screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -54,8 +56,8 @@ class _MainScreenState extends State<MainScreen> {
           },
           children: <Widget>[
             AccountScreen(),
-            MyOrdersScreen(),
-            OffersScreen(),
+            NewsScreen(),
+            CategoriesScreen(),
             HomeScreen(),
           ],
         ),
@@ -64,7 +66,7 @@ class _MainScreenState extends State<MainScreen> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
             color: Colors.white),
-        height: 80,
+        height: 50,
         child: BottomNavyBar(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           itemCornerRadius: 30,

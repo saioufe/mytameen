@@ -51,7 +51,7 @@ class SliderTemplate extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               image: DecorationImage(
                 image: NetworkImage(
-                    "https://pandoradevs.com/images/mytameen1.jpg"),
+                    "https://pandoradevs.com/images/mytameen2.jpg"),
                 fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.circular(10)),

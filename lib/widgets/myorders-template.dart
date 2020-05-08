@@ -8,7 +8,7 @@ class MyOrdersTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width / 1.1,
-      height: MediaQuery.of(context).size.height /1.3,
+      height: MediaQuery.of(context).size.height / 1.3,
       child: ListView.builder(
           itemCount: 15,
           itemBuilder: (ctx, index) {
@@ -40,25 +40,25 @@ class MyOrdersTemplate extends StatelessWidget {
                     top: 5,
                     left: -10,
                     child: Container(
+                        padding: EdgeInsets.all(15),
                         width: 70,
                         height: 70,
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [
-                                Color.fromRGBO(255, 143, 104, 0.8),
-                                Color.fromRGBO(255, 143, 104, 1)
-                              ],
-                              begin: Alignment.bottomRight,
-                              end: Alignment.topLeft),
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                              color: Theme.of(context)
+                                  .bottomAppBarColor
+                                  .withOpacity(0.2),
+                              offset: Offset(2.0, 3.0),
+                              blurRadius: 1.4,
+                            ),
+                          ],
+                          color: Colors.white,
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
                         ),
-                        child: Icon(
-                          InsuranceIcons.car,
-                          color: Colors.white,
-                          size: 35,
-                        )),
+                        child: Image.asset("assets/images/png/transport2.png")),
                   ),
                   Positioned(
                     top: 35,
@@ -82,7 +82,6 @@ class MyOrdersTemplate extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  
                 ],
               ),
             );
