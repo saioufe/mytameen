@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/providers/allProvider.dart';
+import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/screens/main-screen.dart';
 import 'package:my_tameen/screens/pressed-news-screen.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,9 @@ void main() async {
     providers: [
       ChangeNotifierProvider.value(
         value: AllProvider(),
+      ),
+      ChangeNotifierProvider.value(
+        value: Languages(),
       ),
     ],
     child: MaterialApp(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_tameen/providers/languages.dart';
+import 'package:provider/provider.dart';
 
 import '../insurance_icons_icons.dart';
 
@@ -12,6 +14,7 @@ class NewsHomeTemplate extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    final lang = Provider.of<Languages>(context, listen: false);
     return AnimatedBuilder(
       animation: animationController,
       builder: (BuildContext context, Widget child) {
@@ -37,7 +40,7 @@ class NewsHomeTemplate extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'المزيد',
+                            lang.translation['MoreTitle'][Languages.selectedLanguage],
                             textAlign: TextAlign.right,
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
@@ -47,7 +50,7 @@ class NewsHomeTemplate extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        'الاخبار',
+                        lang.translation['news'][Languages.selectedLanguage],
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,

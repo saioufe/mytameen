@@ -1,12 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:my_tameen/providers/allProvider.dart';
+import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/widgets/category-home-template.dart';
 import 'package:my_tameen/widgets/news-home-template.dart';
 import 'package:my_tameen/widgets/offers-home-template.dart';
 import 'package:my_tameen/widgets/search-widget.dart';
 import 'package:my_tameen/widgets/start-order-widget.dart';
 import 'package:my_tameen/widgets/stayHome-widget.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -202,6 +203,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget getAppBarUI() {
+    final lang = Provider.of<Languages>(context, listen: false);
+
     return Column(
       children: <Widget>[
         AnimatedBuilder(
@@ -245,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  "الرئيسية",
+                                  lang.translation['homeTitle'][Languages.selectedLanguage],
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,

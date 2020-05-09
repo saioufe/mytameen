@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/widgets/news-template.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,8 @@ class NewsScreen extends StatefulWidget {
 class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
+    final lang = Provider.of<Languages>(context, listen: false);
+
     final allposts = Provider.of<AllProvider>(context, listen: false);
     return Scaffold(
       body: SingleChildScrollView(
@@ -33,7 +36,7 @@ class _NewsScreenState extends State<NewsScreen> {
                 Expanded(
                   child: Center(
                     child: Text(
-                      'الاخبار',
+                      lang.translation['news'][Languages.selectedLanguage],
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: Theme.of(context).bottomAppBarColor,
@@ -94,9 +97,7 @@ class _NewsScreenState extends State<NewsScreen> {
                                       ));
                                 } else if (authResultSnap.hasError) {
                                   print(authResultSnap.error);
-                                  return 
-
-                                  RaisedButton(
+                                  return RaisedButton(
                                     onPressed: () {
                                       setState(() {
                                         //other.getUserLocation();

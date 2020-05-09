@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:my_tameen/insurance_icons_icons.dart';
+import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/screens/account-screen.dart';
 import 'package:my_tameen/screens/categories-screen.dart';
 import 'package:my_tameen/screens/home-screen.dart';
 import 'package:my_tameen/screens/news-screen.dart';
 import 'package:my_tameen/screens/offers-screen.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'myOrders-screen.dart';
@@ -54,6 +56,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final lang = Provider.of<Languages>(context, listen: false);
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Image.asset("assets/images/what.png"),
@@ -102,7 +106,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 title: Text(
-                  'حسابي',
+                  lang.translation['myaccount'][Languages.selectedLanguage],
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.subtitle,
                 ),
@@ -111,7 +115,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 title: Text(
-                  'الاخبار',
+                  lang.translation['news'][Languages.selectedLanguage],
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.subtitle,
                 ),
@@ -120,7 +124,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 title: Text(
-                  'الفئات',
+                  lang.translation['category'][Languages.selectedLanguage],
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.subtitle,
                 ),
@@ -129,7 +133,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
                 title: Text(
-                  'الرئيسية',
+                  lang.translation['homeTitle'][Languages.selectedLanguage],
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.subtitle,
                 ),

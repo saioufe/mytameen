@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:my_tameen/providers/languages.dart';
+import 'package:provider/provider.dart';
 
 class SearchWidget extends StatelessWidget {
   final AnimationController animationController;
@@ -13,6 +15,8 @@ class SearchWidget extends StatelessWidget {
   TextEditingController searchController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final lang = Provider.of<Languages>(context, listen: false);
+
     return AnimatedBuilder(
       animation: animationController,
       builder: (BuildContext context, Widget child) {
@@ -24,7 +28,6 @@ class SearchWidget extends StatelessWidget {
             child: InkWell(
               onTap: () {},
               child: Column(
-                
                 children: <Widget>[
                   Container(
                     height: 50,
@@ -62,9 +65,10 @@ class SearchWidget extends StatelessWidget {
                               size: 22.0,
                             ),
                           ),
-                          hintText: "البحث السريع",
+                          hintText: lang.translation['fastsearch']
+                              [Languages.selectedLanguage],
                           hintStyle:
-                              TextStyle(fontFamily: 'tajawal', fontSize: 17.0 ),
+                              TextStyle(fontFamily: 'tajawal', fontSize: 17.0),
                         ),
                       ),
                     ),

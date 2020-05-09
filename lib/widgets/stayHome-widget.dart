@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_tameen/providers/languages.dart';
+import 'package:provider/provider.dart';
 
 class StayHomeWidget extends StatelessWidget {
   final AnimationController animationController;
@@ -11,6 +13,7 @@ class StayHomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lang = Provider.of<Languages>(context, listen: false);
     return AnimatedBuilder(
       animation: animationController,
       builder: (BuildContext context, Widget child) {
@@ -55,7 +58,8 @@ class StayHomeWidget extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        "خلك بامان ... خلك بلبيت",
+                        lang.translation['stayhome']
+                            [Languages.selectedLanguage],
                         style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,

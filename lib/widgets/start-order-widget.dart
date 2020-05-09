@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_tameen/providers/languages.dart';
+import 'package:provider/provider.dart';
 
 class StartOrderWidget extends StatelessWidget {
   final AnimationController animationController;
@@ -10,6 +12,7 @@ class StartOrderWidget extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    final lang = Provider.of<Languages>(context, listen: false);
     return AnimatedBuilder(
       animation: animationController,
       builder: (BuildContext context, Widget child) {
@@ -26,7 +29,8 @@ class StartOrderWidget extends StatelessWidget {
                     width: MediaQuery.of(context).size.width / 1.3,
                     padding: EdgeInsets.only(right: 6),
                     child: Text(
-                      'اطلب تامينك الان!!',
+                      lang.translation['startInsuranceNow']
+                          [Languages.selectedLanguage],
                       textAlign: TextAlign.right,
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -54,7 +58,8 @@ class StartOrderWidget extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        "ابدا الخدمة الان",
+                        lang.translation['startService']
+                            [Languages.selectedLanguage],
                         style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,

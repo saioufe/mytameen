@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/insurance_icons_icons.dart';
+import 'package:my_tameen/providers/languages.dart';
+import 'package:provider/provider.dart';
 
 class CategoryHomeTemplate extends StatelessWidget {
   final AnimationController animationController;
@@ -12,6 +14,7 @@ class CategoryHomeTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lang = Provider.of<Languages>(context, listen: false);
     return AnimatedBuilder(
       animation: animationController,
       builder: (BuildContext context, Widget child) {
@@ -26,7 +29,7 @@ class CategoryHomeTemplate extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 1.3,
                   padding: EdgeInsets.only(right: 6),
                   child: Text(
-                    'تسوق حسب الفئات',
+                    lang.translation['accourdingToCategory'][Languages.selectedLanguage],
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontWeight: FontWeight.w500,

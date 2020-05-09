@@ -4,6 +4,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:my_tameen/providers/languages.dart';
+import 'package:provider/provider.dart';
 //import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -103,303 +105,498 @@ class _AccountScreenState extends State<AccountScreen>
   }
 
   Widget getMainData() {
+    final lang = Provider.of<Languages>(context, listen: false);
     return SingleChildScrollView(
-      controller: scrollController,
-      child: Container(
-        padding: EdgeInsets.only(
-          top: AppBar().preferredSize.height +
-              MediaQuery.of(context).padding.top +
-              24,
-          bottom: 62 + MediaQuery.of(context).padding.bottom,
-        ),
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Icon(
-                  Icons.account_circle,
-                  color: Theme.of(context).primaryColor,
-                ),
-                Container(
-                  padding: EdgeInsets.all(3),
-                  alignment: Alignment.centerRight,
-                  margin: EdgeInsets.all(10),
-                  child: Text(
-                    'حسابي',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ],
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed(
-                  MyOrdersScreen.routeName, // arguments: news
-                );
-              },
-              child: new SettingBar(
-                  "طلباتي",
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        "4",
-                        style: TextStyle(color: Colors.green, fontSize: 15),
-                      ),
-                      Icon(
-                        Ionicons.md_list_box,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ],
-                  )),
-            ),
-            InkWell(
-              onTap: () {},
-              child: new SettingBar(
-                  "تسجيل الخروج",
-                  Icon(
-                    Icons.remove_circle_outline,
-                    color: Theme.of(context).primaryColor,
-                  )),
-            ),
-            Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Icon(
-                  Icons.adjust,
-                  color: Theme.of(context).primaryColor,
-                ),
-                Container(
-                  padding: EdgeInsets.all(3),
-                  alignment: Alignment.centerRight,
-                  margin: EdgeInsets.all(10),
-                  child: Text(
-                    'عام',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: <Widget>[
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      notificationIsActive = !notificationIsActive;
-                    });
-                    if (notificationIsActive == true) {
-                      setState(() {
-                        notificationText = "مفعل";
-                        notificationColor = Colors.green;
-                      });
-                    } else {
-                      setState(() {
-                        notificationText = "متوقف";
-                        notificationColor = Colors.red;
-                      });
-                    }
-                  },
-                  child: new SettingBar(
-                    "تفعيل الاشعارات",
-                    Text(
-                      notificationText,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        letterSpacing: 0.0,
-                        color: notificationColor,
-                      ),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () async {
-                    switch (await showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return SimpleDialog(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            elevation: 3,
-                            title: Text('هذه الميزة سوف تاتي لاحقا',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Theme.of(context).canvasColor,
-                                  fontSize: 20,
-                                )),
-                            children: <Widget>[
-                              SimpleDialogOption(
-                                onPressed: () {
-                                  Navigator.pop(context, "1");
-                                },
-                                child: RaisedButton(
-                                  onPressed: null,
-                                  elevation: 2,
-                                  color: Theme.of(context).primaryColor,
-                                  child: const Text(
-                                    'حسنا',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        })) {
-                      case "1":
-                        // Let's go.
-                        // ...
-                        break;
-                    }
-                  },
-                  child: new SettingBar(
-                    "اختر اللغة",
-                    Row(
+        controller: scrollController,
+        child: Container(
+          padding: EdgeInsets.only(
+            top: AppBar().preferredSize.height +
+                MediaQuery.of(context).padding.top +
+                24,
+            bottom: 62 + MediaQuery.of(context).padding.bottom,
+          ),
+          child: Column(
+            children: <Widget>[
+              Languages.selectedLanguage == 0
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        Text(
-                          "اللغة العربية",
-                          style: TextStyle(
-                              color: Theme.of(context).bottomAppBarColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w900),
+                        Icon(
+                          Icons.account_circle,
+                          color: Theme.of(context).primaryColor,
                         ),
-                        SizedBox(
-                          width: 20,
+                        Container(
+                          padding: EdgeInsets.all(3),
+                          alignment: Alignment.centerRight,
+                          margin: EdgeInsets.all(10),
+                          child: Text(
+                            lang.translation['myaccount']
+                                [Languages.selectedLanguage],
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w700),
+                          ),
                         ),
-                        Image.asset(
-                          'icons/flags/png/kw.png',
-                          package: 'country_icons',
-                          width: 40,
-                          height: 40,
+                      ],
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.all(3),
+                          alignment: Alignment.centerRight,
+                          margin: EdgeInsets.all(10),
+                          child: Text(
+                            lang.translation['myaccount']
+                                [Languages.selectedLanguage],
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        Icon(
+                          Icons.account_circle,
+                          color: Theme.of(context).primaryColor,
                         ),
                       ],
                     ),
-                  ),
-                ),
-              ],
-            ),
-            Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Image.asset(
-                  "assets/images/myTameenLogo.png",
-                  width: 30,
-                  height: 30,
-                ),
-                Container(
-                  padding: EdgeInsets.all(3),
-                  alignment: Alignment.centerRight,
-                  margin: EdgeInsets.all(10),
-                  child: Text(
-                    'ماي تاميين',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ],
-            ),
-            InkWell(
-              onTap: () {},
-              child: new SettingBar(
-                "الاتصال بنا",
-                Icon(
-                  Icons.headset_mic,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: new SettingBar(
-                  "الاسئلة الشائعة",
-                  Icon(
-                    Icons.chat_bubble_outline,
-                    color: Theme.of(context).primaryColor,
-                  )),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed(PoliciesScreen.routeName);
-              },
-              child: new SettingBar(
-                  "الشروط والاحكام",
-                  Icon(
-                    Icons.error_outline,
-                    color: Theme.of(context).primaryColor,
-                  )),
-            ),
-            Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Icon(
-                  Icons.merge_type,
-                  color: Theme.of(context).primaryColor,
-                ),
-                Container(
-                  padding: EdgeInsets.all(3),
-                  alignment: Alignment.centerRight,
-                  margin: EdgeInsets.all(10),
-                  child: Text(
-                    'المزيد',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ],
-            ),
-            new SettingBar(
-              "تقييم التطبيق",
-              RatingBar(
-                initialRating: 4,
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemSize: 30,
-                itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                itemBuilder: (context, _) => Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                ),
-                onRatingUpdate: (rating) {
-                  print(rating);
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    MyOrdersScreen.routeName, // arguments: news
+                  );
                 },
+                child: new SettingBar(
+                    lang.translation['myorders'][Languages.selectedLanguage],
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          "4",
+                          style: TextStyle(color: Colors.green, fontSize: 15),
+                        ),
+                        Icon(
+                          Ionicons.md_list_box,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ],
+                    )),
               ),
-            ),
-            new SettingBar(
-              "اصدار التطبيق",
-              Text(
-                '$appVersion',
-                style: TextStyle(
-                    color: Theme.of(context).bottomAppBarColor.withOpacity(0.4),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300),
+              InkWell(
+                onTap: () {},
+                child: new SettingBar(
+                    lang.translation['signout'][Languages.selectedLanguage],
+                    Icon(
+                      Icons.remove_circle_outline,
+                      color: Theme.of(context).primaryColor,
+                    )),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+              Divider(),
+              Languages.selectedLanguage == 0
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Icon(
+                          Icons.adjust,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(3),
+                          alignment: Alignment.centerRight,
+                          margin: EdgeInsets.all(10),
+                          child: Text(
+                            lang.translation['GeneralSetTitle']
+                                [Languages.selectedLanguage],
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.all(3),
+                          alignment: Alignment.centerRight,
+                          margin: EdgeInsets.all(10),
+                          child: Text(
+                            lang.translation['GeneralSetTitle']
+                                [Languages.selectedLanguage],
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        Icon(
+                          Icons.adjust,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ],
+                    ),
+              Column(
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        notificationIsActive = !notificationIsActive;
+                      });
+                      if (notificationIsActive == true) {
+                        setState(() {
+                          notificationText =
+                              lang.translation['notificationStatusActive']
+                                  [Languages.selectedLanguage];
+                          notificationColor = Colors.green;
+                        });
+                      } else {
+                        setState(() {
+                          notificationText =
+                              lang.translation['notificationStatusInactive']
+                                  [Languages.selectedLanguage];
+                          notificationColor = Colors.red;
+                        });
+                      }
+                    },
+                    child: new SettingBar(
+                      lang.translation['notificationActivate']
+                          [Languages.selectedLanguage],
+                      Text(
+                        notificationText,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          letterSpacing: 0.0,
+                          color: notificationColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Column(
+                    children: <Widget>[
+                      InkWell(
+                        onTap: () async {
+                          switch (await showDialog<String>(
+                              context: context,
+                              builder: (BuildContext ctx) {
+                                return SimpleDialog(
+                                  backgroundColor:
+                                      Theme.of(context).canvasColor,
+                                  elevation: 3,
+                                  children: <Widget>[
+                                    SimpleDialogOption(
+                                      onPressed: () {
+                                        //Navigator.pop(context, "1");
+                                      },
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                            width: double.infinity,
+                                            padding: EdgeInsets.all(5),
+                                            child: RaisedButton(
+                                              onPressed: () {
+                                                // HomeScreen.langChanged = 1;
+
+                                                lang.saveLanguageIndex(0);
+                                                Languages.selectedLanguage = 0;
+                                                setState(() {});
+                                                Navigator.of(ctx).pop();
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: <Widget>[
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    child: Image.asset(
+                                                      'icons/flags/png/kw.png',
+                                                      package: 'country_icons',
+                                                      width: 40,
+                                                      height: 40,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "العربية",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ],
+                                              ),
+                                              color:
+                                                  Languages.selectedLanguage ==
+                                                          0
+                                                      ? Theme.of(context)
+                                                          .primaryColor
+                                                      : Colors.grey,
+                                              elevation: 2,
+                                            ),
+                                          ),
+                                          Container(
+                                            width: double.infinity,
+                                            padding: EdgeInsets.all(5),
+                                            child: RaisedButton(
+                                              onPressed: () {
+                                                //  HomeScreen.langChanged = 1;
+                                                setState(() {});
+                                                lang.saveLanguageIndex(1);
+                                                Languages.selectedLanguage = 1;
+                                                Navigator.of(ctx).pop();
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: <Widget>[
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    child: Image.asset(
+                                                      'icons/flags/png/us.png',
+                                                      package: 'country_icons',
+                                                      width: 40,
+                                                      height: 40,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "English",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ],
+                                              ),
+                                              color:
+                                                  Languages.selectedLanguage ==
+                                                          1
+                                                      ? Theme.of(context)
+                                                          .primaryColor
+                                                      : Colors.grey,
+                                              elevation: 2,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              })) {
+                          }
+                        },
+                        child: new SettingBar(
+                          lang.translation['LanguageTitle']
+                              [Languages.selectedLanguage],
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                lang.translation['language']
+                                    [Languages.selectedLanguage],
+                                style: TextStyle(
+                                    color: Theme.of(context).bottomAppBarColor,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w900),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Languages.selectedLanguage == 0
+                                  ? Image.asset(
+                                      'icons/flags/png/kw.png',
+                                      package: 'country_icons',
+                                      width: 40,
+                                      height: 40,
+                                    )
+                                  : Image.asset(
+                                      'icons/flags/png/us.png',
+                                      package: 'country_icons',
+                                      width: 40,
+                                      height: 40,
+                                    )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Divider(),
+                  Languages.selectedLanguage == 0
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Image.asset(
+                              "assets/images/myTameenLogo.png",
+                              width: 30,
+                              height: 30,
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(3),
+                              alignment: Alignment.centerRight,
+                              margin: EdgeInsets.all(10),
+                              child: Text(
+                                lang.translation['mytameen']
+                                    [Languages.selectedLanguage],
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.all(3),
+                              alignment: Alignment.centerRight,
+                              margin: EdgeInsets.all(10),
+                              child: Text(
+                                lang.translation['mytameen']
+                                    [Languages.selectedLanguage],
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                            Image.asset(
+                              "assets/images/myTameenLogo.png",
+                              width: 30,
+                              height: 30,
+                            ),
+                          ],
+                        ),
+                  InkWell(
+                    onTap: () {},
+                    child: new SettingBar(
+                      lang.translation['contactuss']
+                          [Languages.selectedLanguage],
+                      Icon(
+                        Icons.headset_mic,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: new SettingBar(
+                        lang.translation['commonQuestions']
+                            [Languages.selectedLanguage],
+                        Icon(
+                          Icons.chat_bubble_outline,
+                          color: Theme.of(context).primaryColor,
+                        )),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(PoliciesScreen.routeName);
+                    },
+                    child: new SettingBar(
+                        lang.translation['policies']
+                            [Languages.selectedLanguage],
+                        Icon(
+                          Icons.error_outline,
+                          color: Theme.of(context).primaryColor,
+                        )),
+                  ),
+                  Divider(),
+                  Languages.selectedLanguage == 0
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Icon(
+                              Icons.merge_type,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(3),
+                              alignment: Alignment.centerRight,
+                              margin: EdgeInsets.all(10),
+                              child: Text(
+                                lang.translation['MoreTitle']
+                                    [Languages.selectedLanguage],
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.all(3),
+                              alignment: Alignment.centerRight,
+                              margin: EdgeInsets.all(10),
+                              child: Text(
+                                lang.translation['MoreTitle']
+                                    [Languages.selectedLanguage],
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                            Icon(
+                              Icons.merge_type,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ],
+                        ),
+                  new SettingBar(
+                    lang.translation['appRating'][Languages.selectedLanguage],
+                    RatingBar(
+                      initialRating: 4,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemSize: 30,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        print(rating);
+                      },
+                    ),
+                  ),
+                  new SettingBar(
+                    lang.translation['appVersion'][Languages.selectedLanguage],
+                    Text(
+                      '$appVersion',
+                      style: TextStyle(
+                          color: Theme.of(context)
+                              .bottomAppBarColor
+                              .withOpacity(0.4),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 
   Widget getAppBarUI() {
+    final lang = Provider.of<Languages>(context, listen: false);
     return Column(
       children: <Widget>[
         Container(
@@ -435,7 +632,8 @@ class _AccountScreenState extends State<AccountScreen>
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "الاعدادات",
+                          lang.translation['settingsTitle']
+                              [Languages.selectedLanguage],
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
