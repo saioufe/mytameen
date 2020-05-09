@@ -4,6 +4,8 @@ import 'package:my_tameen/screens/main-screen.dart';
 import 'package:my_tameen/screens/pressed-news-screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flare_splash_screen/flare_splash_screen.dart';
+import './screens/myOrders-screen.dart';
+import './screens/privecy-policies-screen.dart';
 
 void main() async {
 //Remove this method to stop OneSignal Debugging
@@ -74,7 +76,8 @@ void main() async {
       // ),
       routes: {
         NewsPressedScreen.routeName: (ctx) => NewsPressedScreen(),
-        // MainScreen.routeName: (ctx) => MainScreen(0),
+        MyOrdersScreen.routeName: (ctx) => MyOrdersScreen(),
+        PoliciesScreen.routeName: (ctx) => PoliciesScreen(),
       },
     ),
   )

@@ -17,6 +17,8 @@ class MainScreen extends StatefulWidget {
 }
 
 AnimationController animationController;
+AnimationController animationController2;
+AnimationController animationController3;
 
 class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   Widget tabBody = Container(
@@ -33,7 +35,13 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         duration: Duration(milliseconds: 1500), vsync: this);
     tabBody = CategoriesScreen(animationController: animationController);
 
-    
+    animationController2 = AnimationController(
+        duration: Duration(milliseconds: 1500), vsync: this);
+    tabBody = HomeScreen(animationController: animationController2);
+
+    animationController3 = AnimationController(
+        duration: Duration(milliseconds: 1500), vsync: this);
+    tabBody = HomeScreen(animationController: animationController3);
     _pageController = PageController();
     //_pageController.jumpToPage(3);
   }
@@ -66,10 +74,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             setState(() => _currentIndex = index);
           },
           children: <Widget>[
-            AccountScreen(),
+            AccountScreen(animationController3),
             NewsScreen(),
             CategoriesScreen(animationController: animationController),
-            HomeScreen(animationController: animationController),
+            HomeScreen(animationController: animationController2),
           ],
         ),
       ),

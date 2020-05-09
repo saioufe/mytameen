@@ -38,6 +38,7 @@ class _NewsPressedScreenState extends State<NewsPressedScreen> {
             SliverAppBar(
               expandedHeight: 300,
               pinned: true,
+              backgroundColor: Theme.of(context).primaryColor,
               iconTheme: IconThemeData(color: Colors.white),
               flexibleSpace: FlexibleSpaceBar(
                 background: Hero(

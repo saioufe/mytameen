@@ -8,7 +8,7 @@ class MyOrdersTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width / 1.1,
-      height: MediaQuery.of(context).size.height / 1.3,
+      height: MediaQuery.of(context).size.height ,
       child: ListView.builder(
           itemCount: 15,
           itemBuilder: (ctx, index) {

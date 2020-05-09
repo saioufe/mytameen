@@ -56,18 +56,47 @@ class _NewsScreenState extends State<NewsScreen> {
                               builder: (ctx, authResultSnap) {
                                 if (authResultSnap.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(top: 180.0),
-                                    child: Center(
-                                        child: CircularProgressIndicator(
-                                      backgroundColor:
-                                          Theme.of(context).primaryColor,
-                                      strokeWidth: 2,
-                                    )),
-                                  );
+                                  return Shimmer.fromColors(
+                                      baseColor: Color(0xFFebeff2),
+                                      highlightColor:
+                                          Colors.grey.withOpacity(0.2),
+                                      period: Duration(milliseconds: 300),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                            height: 335,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                1.1,
+                                            decoration: BoxDecoration(
+                                                color: Theme.of(context)
+                                                    .canvasColor,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(32))),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Container(
+                                            height: 335,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                1.1,
+                                            decoration: BoxDecoration(
+                                                color: Theme.of(context)
+                                                    .canvasColor,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(32))),
+                                          ),
+                                        ],
+                                      ));
                                 } else if (authResultSnap.hasError) {
                                   print(authResultSnap.error);
-                                  return RaisedButton(
+                                  return 
+
+                                  RaisedButton(
                                     onPressed: () {
                                       setState(() {
                                         //other.getUserLocation();

@@ -286,7 +286,7 @@ class MainData extends StatelessWidget {
                       shrinkWrap: true,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 1,
-                        childAspectRatio: 1.5,
+                        childAspectRatio: 1.0,
                         mainAxisSpacing: 10.0,
                         crossAxisSpacing: 10.0,
                       ),

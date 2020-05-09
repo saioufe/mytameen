@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:my_tameen/widgets/myorders-template.dart';
 
 class MyOrdersScreen extends StatelessWidget {
+  static const routeName = '/myOrders_screen';
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).canvasColor,
+        backgroundColor: Theme.of(context).primaryColor,
         elevation: 0,
         title: Container(
           width: MediaQuery.of(context).size.width,
@@ -16,7 +18,7 @@ class MyOrdersScreen extends StatelessWidget {
             style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontFamily: "tajawal",
-                color: Theme.of(context).bottomAppBarColor,
+                color:Colors.white,
                 fontSize: 28),
           ),
         ),
