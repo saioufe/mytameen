@@ -16,13 +16,24 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 3;
+AnimationController animationController;
+
+class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
+  Widget tabBody = Container(
+    color: Color(0xFFecedf1),
+  );
+  int _currentIndex = 0;
   PageController _pageController;
 
   @override
   void initState() {
     super.initState();
+
+    animationController = AnimationController(
+        duration: Duration(milliseconds: 1500), vsync: this);
+    tabBody = CategoriesScreen(animationController: animationController);
+
+    
     _pageController = PageController();
     //_pageController.jumpToPage(3);
   }
@@ -57,8 +68,8 @@ class _MainScreenState extends State<MainScreen> {
           children: <Widget>[
             AccountScreen(),
             NewsScreen(),
-            CategoriesScreen(),
-            HomeScreen(),
+            CategoriesScreen(animationController: animationController),
+            HomeScreen(animationController: animationController),
           ],
         ),
       ),

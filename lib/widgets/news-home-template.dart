@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 import '../insurance_icons_icons.dart';
 
 class NewsHomeTemplate extends StatelessWidget {
+  final AnimationController animationController;
+  final Animation animation;
+
+  NewsHomeTemplate({
+    this.animationController,
+    this.animation,
+  });
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -77,7 +84,7 @@ class NewsHomeTemplate extends StatelessWidget {
               top: 170,
               left: 25,
               child: Container(
-                padding: EdgeInsets.only(right:10),
+                padding: EdgeInsets.only(right: 10),
                 width: MediaQuery.of(context).size.width / 1.4,
                 child: Text(
                   "هنا يتم كتابة عنوان الموضوع سيف ماهر",

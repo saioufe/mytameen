@@ -10,6 +10,8 @@ import 'package:http/http.dart' as http;
 
 class AllProvider extends ChangeNotifier {
   static const String hostName = "https://pandoradevs.com";
+  static bool buildOnce1 = false;
+  static bool buildOnce2 = false;
 //   static bool hasLogin;
 //   List<Post> _posts = [];
 //   List<Post> get posts {

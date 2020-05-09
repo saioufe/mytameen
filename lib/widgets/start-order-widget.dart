@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class StartOrderWidget extends StatelessWidget {
+  final AnimationController animationController;
+  final Animation animation;
+
+  StartOrderWidget({
+    this.animationController,
+    this.animation,
+  });
   @override
   Widget build(BuildContext context) {
     return InkWell(

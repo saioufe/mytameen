@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/insurance_icons_icons.dart';
 
-class CategoryTemplate extends StatelessWidget {
+class CategoryHomeTemplate extends StatelessWidget {
+  final AnimationController animationController;
+  final Animation animation;
+
+  CategoryHomeTemplate({
+    this.animationController,
+    this.animation,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,7 +57,11 @@ class CategoryTemplate extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset("assets/images/png/transport1.png" ,width: 50,height: 50,),
+                    Image.asset(
+                      "assets/images/png/transport1.png",
+                      width: 50,
+                      height: 50,
+                    ),
                     Text(
                       "تامين ضد الغير ",
                       overflow: TextOverflow.ellipsis,
