@@ -106,9 +106,10 @@ class AllProvider extends ChangeNotifier {
 //     notifyListeners();
 //   }
 
+
   List<News> _news = [];
   List<News> get news {
-    return [..._news];
+    return _news;
   }
 
   List data = [];

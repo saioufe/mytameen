@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:my_tameen/insurance_icons_icons.dart';
+import 'package:my_tameen/providers/allProvider.dart';
 import 'package:my_tameen/providers/languages.dart';
+import 'package:my_tameen/providers/registrition.dart';
 import 'package:my_tameen/screens/account-screen.dart';
 import 'package:my_tameen/screens/categories-screen.dart';
 import 'package:my_tameen/screens/home-screen.dart';
+import 'package:my_tameen/screens/login_page.dart';
 import 'package:my_tameen/screens/news-screen.dart';
 import 'package:my_tameen/screens/offers-screen.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +29,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   Widget tabBody = Container(
     color: Color(0xFFecedf1),
   );
-  int _currentIndex = 0;
+  int _currentIndex = 3;
   PageController _pageController;
 
   @override
@@ -44,8 +47,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     animationController3 = AnimationController(
         duration: Duration(milliseconds: 1500), vsync: this);
     tabBody = HomeScreen(animationController: animationController3);
-    _pageController = PageController();
-    //_pageController.jumpToPage(3);
+    _pageController = PageController(initialPage: 3);
   }
 
   @override
@@ -78,10 +80,15 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             setState(() => _currentIndex = index);
           },
           children: <Widget>[
-            AccountScreen(animationController3),
+            Registration.isLogin == true
+                ? AccountScreen(animationController3)
+                : LoginPage(),
             NewsScreen(),
-            CategoriesScreen(animationController: animationController),
-            HomeScreen(animationController: animationController2),
+            CategoriesScreen(animationController: animationController ),
+            HomeScreen(
+              animationController: animationController2,
+              pagecontroll: _pageController,
+            ),
           ],
         ),
       ),

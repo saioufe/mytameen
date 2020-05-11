@@ -86,7 +86,7 @@ class OffersHomeTemplate extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(18.0),
                           child: Image.asset(
-                            "assets/images/slider2.png",
+                            "assets/images/house.jpg",
                             fit: BoxFit.cover,
                           ),
                         )
@@ -99,7 +99,8 @@ class OffersHomeTemplate extends StatelessWidget {
                         padding: EdgeInsets.only(right: 10),
                         width: MediaQuery.of(context).size.width / 1.4,
                         child: Text(
-                          "هنا يتم كتابة عنوان الموضوع سيف ماهر",
+                          "هنا يتم كتابة عنوان العرض",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w800,

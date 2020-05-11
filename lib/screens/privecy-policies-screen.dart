@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/widgets/myorders-template.dart';
+import 'package:provider/provider.dart';
 
 class PoliciesScreen extends StatelessWidget {
   static const routeName = '/policies-screen';
   @override
   Widget build(BuildContext context) {
+    final lang = Provider.of<Languages>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
@@ -12,7 +15,7 @@ class PoliciesScreen extends StatelessWidget {
         title: Container(
           width: MediaQuery.of(context).size.width,
           child: Text(
-            'الشروط والاحكام',
+            lang.translation['policies'][Languages.selectedLanguage],
             textAlign: TextAlign.right,
             style: TextStyle(
                 fontWeight: FontWeight.w500,

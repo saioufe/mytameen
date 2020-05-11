@@ -5,35 +5,44 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:my_tameen/providers/languages.dart';
+import 'package:my_tameen/screens/contactUs-screen.dart';
+import 'package:my_tameen/screens/questions-screen.dart';
 import 'package:provider/provider.dart';
 //import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-//import '../fintnessAppTheme.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-//import 'package:currency_pickers/currency_pickers.dart';
 import '../screens/myOrders-screen.dart';
 import '../screens/privecy-policies-screen.dart';
+import 'package:giffy_dialog/giffy_dialog.dart';
 
 class AccountScreen extends StatefulWidget {
-  static const routName = '/settings';
-  final AnimationController animationController;
   AccountScreen(this.animationController);
+
+  static const routName = '/settings';
+
+  final AnimationController animationController;
+
   @override
   _AccountScreenState createState() => _AccountScreenState();
 }
 
 class _AccountScreenState extends State<AccountScreen>
     with TickerProviderStateMixin {
-  var platform = MethodChannel('crossingthestreams.io/resourceResolver');
-  Animation<double> topBarAnimation;
-  Animation<double> topBarAnimationButton;
+  String appVersion = " v 1.0.0";
+  String currencyName;
   List<Widget> listViews = List<Widget>();
-  var scrollController = ScrollController();
-  double topBarOpacity = 0.0;
+  Color notificationColor = Colors.green.withOpacity(0.5);
   bool notificationIsActive = true;
   String notificationText = "مفعل";
-  Color notificationColor = Colors.green.withOpacity(0.5);
+  var platform = MethodChannel('crossingthestreams.io/resourceResolver');
+  var scrollController = ScrollController();
+  String title = "Saif";
+  Animation<double> topBarAnimation;
+  Animation<double> topBarAnimationButton;
+  double topBarOpacity = 0.0;
+  String url = "pandoraltd.com";
+
   // Future<void> _cancelNotification() async {
   //   await flutterLocalNotificationsPlugin.cancel(0);
   //   await flutterLocalNotificationsPlugin.cancel(1);
@@ -79,29 +88,6 @@ class _AccountScreenState extends State<AccountScreen>
         }
       }
     });
-  }
-
-  String appVersion = " v 1.0.0";
-  String title = "Saif";
-  String url = "pandoraltd.com";
-  String currencyName;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).canvasColor,
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Stack(
-          children: <Widget>[
-            getMainData(),
-            getAppBarUI(),
-            SizedBox(
-              height: MediaQuery.of(context).padding.bottom,
-            )
-          ],
-        ),
-      ),
-    );
   }
 
   Widget getMainData() {
@@ -478,7 +464,38 @@ class _AccountScreenState extends State<AccountScreen>
                           ],
                         ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      showDialog(
+
+                        context: context,
+                        builder: (_) => Container(
+                          height: 600,
+                          child: NetworkGiffyDialog(
+                            image: Image.asset(
+                              "assets/images/gif.gif",
+                              fit: BoxFit.cover,
+                             
+                            ),
+                            title: Text(
+                                lang.translation['contactuss']
+                                    [Languages.selectedLanguage],
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 15.0, fontWeight: FontWeight.w600)),
+                            description: Text(
+                              '07803043333 8923913141 \n email@test.com',
+                              textAlign: TextAlign.center,
+                            ),
+                            entryAnimation: EntryAnimation.TOP,
+                            onOkButtonPressed: () {},
+                            onlyCancelButton: true,
+                          
+                            buttonCancelColor: Theme.of(context).primaryColor,
+                            buttonCancelText: Text("OK" , style:TextStyle(color: Colors.white),),
+                          ),
+                        ),
+                      );
+                    },
                     child: new SettingBar(
                       lang.translation['contactuss']
                           [Languages.selectedLanguage],
@@ -489,7 +506,10 @@ class _AccountScreenState extends State<AccountScreen>
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(QuestionsScreen.routeName);
+                    },
                     child: new SettingBar(
                         lang.translation['commonQuestions']
                             [Languages.selectedLanguage],
@@ -653,6 +673,25 @@ class _AccountScreenState extends State<AccountScreen>
       ],
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Theme.of(context).canvasColor,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: <Widget>[
+            getMainData(),
+            getAppBarUI(),
+            SizedBox(
+              height: MediaQuery.of(context).padding.bottom,
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 //  Widget _buildDropdownItem(Country country) => Container(
@@ -668,9 +707,11 @@ class _AccountScreenState extends State<AccountScreen>
 //       );
 
 class SettingBar extends StatelessWidget {
-  final String title;
-  final Widget child;
   SettingBar(this.title, this.child);
+
+  final Widget child;
+  final String title;
+
   @override
   Widget build(BuildContext context) {
     return Container(

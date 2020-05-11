@@ -56,7 +56,7 @@ class Template extends StatelessWidget {
               child: Hero(
                 tag: news.id,
                 child: FadeInImage(
-                  placeholder: AssetImage('assets/images/slider2.png'),
+                  placeholder: AssetImage('assets/images/car.jpg'),
                   height: MediaQuery.of(context).size.height * 0.35,
                   image: NetworkImage(
                       "${AllProvider.hostName}/images/posts/${news.postImage}"),

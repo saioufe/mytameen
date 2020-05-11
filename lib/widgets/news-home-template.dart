@@ -7,10 +7,11 @@ import '../insurance_icons_icons.dart';
 class NewsHomeTemplate extends StatelessWidget {
   final AnimationController animationController;
   final Animation animation;
-
+  final PageController pageController;
   NewsHomeTemplate({
     this.animationController,
     this.animation,
+    this.pageController,
   });
   @override
   Widget build(BuildContext context) {
@@ -30,24 +31,30 @@ class NewsHomeTemplate extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Icon(
-                              Icons.keyboard_arrow_left,
-                              size: 18,
+                      InkWell(
+                        onTap: () {
+                          pageController.jumpToPage(1);
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Icon(
+                                Icons.keyboard_arrow_left,
+                                size: 18,
+                              ),
                             ),
-                          ),
-                          Text(
-                            lang.translation['MoreTitle'][Languages.selectedLanguage],
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Theme.of(context).bottomAppBarColor,
-                                fontSize: 15),
-                          ),
-                        ],
+                            Text(
+                              lang.translation['MoreTitle']
+                                  [Languages.selectedLanguage],
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).bottomAppBarColor,
+                                  fontSize: 15),
+                            ),
+                          ],
+                        ),
                       ),
                       Text(
                         lang.translation['news'][Languages.selectedLanguage],
@@ -86,7 +93,7 @@ class NewsHomeTemplate extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(18.0),
                           child: Image.asset(
-                            "assets/images/mohammed.jpg",
+                            "assets/images/car.jpg",
                             fit: BoxFit.cover,
                           ),
                         )
@@ -99,7 +106,8 @@ class NewsHomeTemplate extends StatelessWidget {
                         padding: EdgeInsets.only(right: 10),
                         width: MediaQuery.of(context).size.width / 1.4,
                         child: Text(
-                          "هنا يتم كتابة عنوان الموضوع سيف ماهر",
+                          "هنا يتم كتابة عنوان الموضوع ",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w800,

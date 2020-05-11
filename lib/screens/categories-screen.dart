@@ -373,7 +373,7 @@ class MainData extends StatelessWidget {
                               Container(
                                 margin: EdgeInsets.symmetric(horizontal: 30.0),
                                 child: Text(
-                                  "هنا يتم وضع وصف نوع التامين بلتفصيل يفضل شرح بسيط مو مليون كلمة سيف ماهر محمد جمال الدين",
+                                  "هنا يتم وضع وصف نوع التامين بلتفصيل يفضل شرح بسيط ",
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.justify,
                                   textDirection: TextDirection.rtl,

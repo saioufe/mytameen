@@ -5,6 +5,7 @@ import 'package:my_tameen/widgets/category-home-template.dart';
 import 'package:my_tameen/widgets/news-home-template.dart';
 import 'package:my_tameen/widgets/offers-home-template.dart';
 import 'package:my_tameen/widgets/search-widget.dart';
+import 'package:my_tameen/widgets/slider-template.dart';
 import 'package:my_tameen/widgets/start-order-widget.dart';
 import 'package:my_tameen/widgets/stayHome-widget.dart';
 import 'package:provider/provider.dart';
@@ -12,8 +13,9 @@ import 'package:provider/provider.dart';
 class HomeScreen extends StatefulWidget {
   @override
   final AnimationController animationController;
-
-  const HomeScreen({Key key, this.animationController}) : super(key: key);
+  final PageController pagecontroll;
+  const HomeScreen({Key key, this.animationController, this.pagecontroll})
+      : super(key: key);
   _HomeScreenState createState() => _HomeScreenState();
 }
 
@@ -64,9 +66,23 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void addAllListData() {
-    var count = 11;
+    var count = 12;
 
     if (AllProvider.buildOnce1 == false) {
+      listViews.add(
+        SliderTemplate(
+          animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+              parent: widget.animationController,
+              curve:
+                  Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
+          animationController: widget.animationController,
+        ),
+      );
+      listViews.add(
+        SizedBox(
+          height: 30,
+        ),
+      );
       listViews.add(
         SearchWidget(
           animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
@@ -103,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
               curve:
                   Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
           animationController: widget.animationController,
+          pageController: widget.pagecontroll,
         ),
       );
       listViews.add(
@@ -117,6 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
               curve:
                   Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
           animationController: widget.animationController,
+          pageController: widget.pagecontroll,
         ),
       );
       listViews.add(
@@ -248,7 +266,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  lang.translation['homeTitle'][Languages.selectedLanguage],
+                                  lang.translation['homeTitle']
+                                      [Languages.selectedLanguage],
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
