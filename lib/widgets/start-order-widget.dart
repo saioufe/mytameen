@@ -24,7 +24,7 @@ class StartOrderWidget extends StatelessWidget {
                 0.0, 30 * (1.0 - animation.value), 0.0),
             child: InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed(StartTheService.routeName);
+                //Navigator.of(context).pushNamed(StartTheService.routeName);
               },
               child: Column(
                 children: <Widget>[

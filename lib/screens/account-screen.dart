@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:my_tameen/providers/languages.dart';
+import 'package:my_tameen/providers/registrition.dart';
 import 'package:my_tameen/screens/contactUs-screen.dart';
 import 'package:my_tameen/screens/questions-screen.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,8 @@ import '../screens/privecy-policies-screen.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 
 class AccountScreen extends StatefulWidget {
-  AccountScreen(this.animationController);
+  final PageController pagecontroll;
+  AccountScreen(this.animationController, this.pagecontroll);
 
   static const routName = '/settings';
 
@@ -92,6 +94,7 @@ class _AccountScreenState extends State<AccountScreen>
 
   Widget getMainData() {
     final lang = Provider.of<Languages>(context, listen: false);
+    final regs = Provider.of<Registration>(context, listen: false);
     return SingleChildScrollView(
         controller: scrollController,
         child: Container(
@@ -117,13 +120,11 @@ class _AccountScreenState extends State<AccountScreen>
                   //   Radius.circular(5),
                   // ),
                 ),
-                width: MediaQuery.of(context).size.width ,
-
+                width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: <Widget>[
-
                     Text(
-                      "Saif maher mohammed jamal ",
+                      Registration.userName,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -203,7 +204,19 @@ class _AccountScreenState extends State<AccountScreen>
                     )),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  if (Registration.theMethodRegistered == "1") {
+                    regs
+                        .logOutFaceBook()
+                        .then((value) => Registration.isLogin = false)
+                        .then((value) => widget.pagecontroll.jumpToPage(3));
+                  } else if (Registration.theMethodRegistered == "2") {
+                    regs
+                        .handleSignOut()
+                        .then((value) => Registration.isLogin = false)
+                        .then((value) => widget.pagecontroll.jumpToPage(3));
+                  }
+                },
                 child: new SettingBar(
                     lang.translation['signout'][Languages.selectedLanguage],
                     Icon(

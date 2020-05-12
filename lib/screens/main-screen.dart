@@ -81,10 +81,15 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           },
           children: <Widget>[
             Registration.isLogin == true
-                ? AccountScreen(animationController3)
-                : LoginPage(),
+                ? AccountScreen(
+                    animationController3,
+                    _pageController,
+                  )
+                : LoginPage(
+                    _pageController,
+                  ),
             NewsScreen(),
-            CategoriesScreen(animationController: animationController ),
+            CategoriesScreen(animationController: animationController),
             HomeScreen(
               animationController: animationController2,
               pagecontroll: _pageController,

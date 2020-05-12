@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/providers/allProvider.dart';
 import 'package:my_tameen/providers/languages.dart';
+import 'package:my_tameen/providers/registrition.dart';
 import 'package:my_tameen/screens/contactUs-screen.dart';
 import 'package:my_tameen/screens/main-screen.dart';
 import 'package:my_tameen/screens/offers-screen.dart';
@@ -43,6 +44,9 @@ void main() async {
       ),
       ChangeNotifierProvider.value(
         value: Languages(),
+      ),
+      ChangeNotifierProvider.value(
+        value: Registration(),
       ),
     ],
     child: MaterialApp(
@@ -89,7 +93,7 @@ void main() async {
         QuestionsScreen.routeName: (ctx) => QuestionsScreen(),
         ContactUsScreen.routeName: (ctx) => ContactUsScreen(),
         OffersScreen.routeName: (ctx) => OffersScreen(),
-        StartTheService.routeName: (ctx) => StartTheService(),
+        //StartTheService.routeName: (ctx) => StartTheService(),
       },
     ),
   )

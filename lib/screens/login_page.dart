@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:my_tameen/providers/registrition.dart';
 import 'package:my_tameen/widgets/bubble_indication_painter.dart';
+import 'package:provider/provider.dart';
 //import 'package:the_gorgeous_login/style/theme.dart' as Theme;
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key key}) : super(key: key);
+  final PageController pagecontroll;
+
+  LoginPage(this.pagecontroll);
 
   @override
   _LoginPageState createState() => new _LoginPageState();
@@ -173,7 +177,7 @@ class _LoginPageState extends State<LoginPage>
       width: 300.0,
       height: 50.0,
       decoration: BoxDecoration(
-        color: Color(0x552B2B2B),
+        color: Colors.red,
         borderRadius: BorderRadius.all(Radius.circular(25.0)),
       ),
       child: CustomPaint(
@@ -219,6 +223,8 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Widget _buildSignIn(BuildContext context) {
+    Provider.of<Registration>(context, listen: false).googleFirstMove();
+    final regs = Provider.of<Registration>(context, listen: false);
     return Container(
       padding: EdgeInsets.only(top: 23.0),
       child: Column(
@@ -400,7 +406,9 @@ class _LoginPageState extends State<LoginPage>
               Padding(
                 padding: EdgeInsets.only(top: 10.0, right: 40.0),
                 child: GestureDetector(
-                  onTap: () => showInSnackBar("Facebook button pressed"),
+                  onTap: () => regs
+                      .loginFacebook()
+                      .then((value) => widget.pagecontroll.jumpToPage(3)),
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: new BoxDecoration(
@@ -417,7 +425,9 @@ class _LoginPageState extends State<LoginPage>
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
                 child: GestureDetector(
-                  onTap: () => showInSnackBar("Google button pressed"),
+                  onTap: () => regs
+                      .handleSignInGoogle()
+                      .then((value) => widget.pagecontroll.jumpToPage(3)),
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: new BoxDecoration(
@@ -439,6 +449,8 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Widget _buildSignUp(BuildContext context) {
+    Provider.of<Registration>(context, listen: false).googleFirstMove();
+    final regs = Provider.of<Registration>(context, listen: false);
     return Container(
       padding: EdgeInsets.only(top: 23.0),
       child: Column(
@@ -653,7 +665,11 @@ class _LoginPageState extends State<LoginPage>
               Padding(
                 padding: EdgeInsets.only(top: 10.0, right: 40.0),
                 child: GestureDetector(
-                  onTap: () => showInSnackBar("Facebook button pressed"),
+                  onTap: () {
+                    regs
+                        .loginFacebook()
+                        .then((value) => widget.pagecontroll.jumpToPage(3));
+                  },
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: new BoxDecoration(
@@ -670,7 +686,11 @@ class _LoginPageState extends State<LoginPage>
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
                 child: GestureDetector(
-                  onTap: () => showInSnackBar("Google button pressed"),
+                  onTap: () {
+                    regs
+                        .handleSignInGoogle()
+                        .then((value) => widget.pagecontroll.jumpToPage(3));
+                  },
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: new BoxDecoration(

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "543732834209",
+    "firebase_url": "https://my-tameen.firebaseio.com",
+    "project_id": "my-tameen",
+    "storage_bucket": "my-tameen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543732834209:android:0962710b61f353e0b235e0",
+        "android_client_info": {
+          "package_name": "com.creativeprojects.mytameen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543732834209-3g90658ut6p8jpk4b3b6mk9n0n28aj7r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.creativeprojects.mytameen",
+            "certificate_hash": "de16dec9fce0838b8aba438970f51aba76818ebd"
+          }
+        },
+        {
+          "client_id": "543732834209-voefej9td2toa8uimkdaks7thnjbch3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4UT6jH9CAx4R3SB2CJOC7TLF7KXUV8sk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543732834209-voefej9td2toa8uimkdaks7thnjbch3e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
