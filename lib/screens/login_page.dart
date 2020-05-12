@@ -546,26 +546,16 @@ class _LoginPageState extends State<LoginPage>
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           controller: signupConfirmPasswordController,
-                          obscureText: _obscureTextSignupConfirm,
                           style: TextStyle(fontSize: 16.0, color: Colors.black),
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
-                              FontAwesomeIcons.lock,
+                              FontAwesomeIcons.phone,
                               color: Colors.black,
                             ),
-                            hintText: "تاكيد كلمة السر",
+                            hintText: "رقم الهاتف",
                             hintStyle: TextStyle(fontSize: 16.0),
-                            suffixIcon: GestureDetector(
-                              onTap: _toggleSignupConfirm,
-                              child: Icon(
-                                _obscureTextSignupConfirm
-                                    ? FontAwesomeIcons.eye
-                                    : FontAwesomeIcons.eyeSlash,
-                                size: 15.0,
-                                color: Colors.black,
-                              ),
-                            ),
                           ),
                         ),
                       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/providers/languages.dart';
+import 'package:my_tameen/screens/offers-screen.dart';
 import 'package:provider/provider.dart';
 
 import '../insurance_icons_icons.dart';
@@ -30,27 +31,35 @@ class OffersHomeTemplate extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Icon(
-                              Icons.keyboard_arrow_left,
-                              size: 18,
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(OffersScreen.routeName);
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Icon(
+                                Icons.keyboard_arrow_left,
+                                size: 18,
+                              ),
                             ),
-                          ),
-                          Text(
-                            lang.translation['MoreTitle'][Languages.selectedLanguage],
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Theme.of(context).bottomAppBarColor,
-                                fontSize: 15),
-                          ),
-                        ],
+                            Text(
+                              lang.translation['MoreTitle']
+                                  [Languages.selectedLanguage],
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).bottomAppBarColor,
+                                  fontSize: 15),
+                            ),
+                          ],
+                        ),
                       ),
                       Text(
-                        lang.translation['LastOffers'][Languages.selectedLanguage],
+                        lang.translation['LastOffers']
+                            [Languages.selectedLanguage],
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,

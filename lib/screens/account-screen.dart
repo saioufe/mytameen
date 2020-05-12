@@ -103,6 +103,37 @@ class _AccountScreenState extends State<AccountScreen>
           ),
           child: Column(
             children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                        color: Theme.of(context).primaryColor.withOpacity(0.1),
+                        offset: Offset(1.1, 1.1),
+                        blurRadius: 10.0),
+                  ],
+                  color: Theme.of(context).primaryColor,
+                  // borderRadius: BorderRadius.all(
+                  //   Radius.circular(5),
+                  // ),
+                ),
+                width: MediaQuery.of(context).size.width ,
+
+                child: Column(
+                  children: <Widget>[
+
+                    Text(
+                      "Saif maher mohammed jamal ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Languages.selectedLanguage == 0
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -466,7 +497,6 @@ class _AccountScreenState extends State<AccountScreen>
                   InkWell(
                     onTap: () {
                       showDialog(
-
                         context: context,
                         builder: (_) => Container(
                           height: 600,
@@ -474,14 +504,14 @@ class _AccountScreenState extends State<AccountScreen>
                             image: Image.asset(
                               "assets/images/gif.gif",
                               fit: BoxFit.cover,
-                             
                             ),
                             title: Text(
                                 lang.translation['contactuss']
                                     [Languages.selectedLanguage],
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 15.0, fontWeight: FontWeight.w600)),
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w600)),
                             description: Text(
                               '07803043333 8923913141 \n email@test.com',
                               textAlign: TextAlign.center,
@@ -489,9 +519,11 @@ class _AccountScreenState extends State<AccountScreen>
                             entryAnimation: EntryAnimation.TOP,
                             onOkButtonPressed: () {},
                             onlyCancelButton: true,
-                          
                             buttonCancelColor: Theme.of(context).primaryColor,
-                            buttonCancelText: Text("OK" , style:TextStyle(color: Colors.white),),
+                            buttonCancelText: Text(
+                              "OK",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       );

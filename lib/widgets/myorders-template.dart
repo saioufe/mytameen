@@ -23,14 +23,17 @@ class MyOrdersTemplate extends StatelessWidget {
                             borderRadius:
                                 BorderRadius.circular(20.0)), //this right here
                         child: Container(
-                          height: 200,
+                          height: 150,
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("هل انت متاكد من حذف القيد",textAlign: TextAlign.right,  style: TextStyle(fontSize: 20),),
+                                Text(
+                                  "هل انت متاكد من حذف القيد",
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(fontSize: 20),
+                                ),
                                 SizedBox(
                                   width: 320.0,
                                   child: RaisedButton(

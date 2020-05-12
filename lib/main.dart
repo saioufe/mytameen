@@ -6,6 +6,7 @@ import 'package:my_tameen/screens/main-screen.dart';
 import 'package:my_tameen/screens/offers-screen.dart';
 import 'package:my_tameen/screens/pressed-news-screen.dart';
 import 'package:my_tameen/screens/questions-screen.dart';
+import 'package:my_tameen/screens/start-the-service.dart';
 import 'package:provider/provider.dart';
 import 'package:flare_splash_screen/flare_splash_screen.dart';
 import './screens/myOrders-screen.dart';
@@ -87,7 +88,8 @@ void main() async {
         PoliciesScreen.routeName: (ctx) => PoliciesScreen(),
         QuestionsScreen.routeName: (ctx) => QuestionsScreen(),
         ContactUsScreen.routeName: (ctx) => ContactUsScreen(),
-        OffersScreen.routeName : (ctx) => OffersScreen(),
+        OffersScreen.routeName: (ctx) => OffersScreen(),
+        StartTheService.routeName: (ctx) => StartTheService(),
       },
     ),
   )

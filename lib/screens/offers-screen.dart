@@ -51,17 +51,6 @@ class _OffersScreenState extends State<OffersScreen> {
                     width: MediaQuery.of(context).size.width / 2,
                   ),
                 ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      lang.translation['news'][Languages.selectedLanguage],
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context).bottomAppBarColor,
-                          fontSize: 28),
-                    ),
-                  ),
-                ),
               ],
             ),
             SingleChildScrollView(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/providers/languages.dart';
+import 'package:my_tameen/screens/start-the-service.dart';
 import 'package:provider/provider.dart';
 
 class StartOrderWidget extends StatelessWidget {
@@ -22,7 +23,9 @@ class StartOrderWidget extends StatelessWidget {
             transform: new Matrix4.translationValues(
                 0.0, 30 * (1.0 - animation.value), 0.0),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(StartTheService.routeName);
+              },
               child: Column(
                 children: <Widget>[
                   Container(
