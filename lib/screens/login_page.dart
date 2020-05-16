@@ -37,8 +37,7 @@ class _LoginPageState extends State<LoginPage>
   TextEditingController signupEmailController = new TextEditingController();
   TextEditingController signupNameController = new TextEditingController();
   TextEditingController signupPasswordController = new TextEditingController();
-  TextEditingController signupConfirmPasswordController =
-      new TextEditingController();
+  TextEditingController signupPhoneController = new TextEditingController();
 
   PageController _pageController;
 
@@ -335,7 +334,21 @@ class _LoginPageState extends State<LoginPage>
                         ),
                       ),
                     ),
-                    onPressed: () => showInSnackBar("Login button pressed")),
+                    onPressed: () {
+                      if (loginEmailController.text == "" ||
+                          loginPasswordController.text == "") {
+                        showInSnackBar("يرجى ملئ جميع الحقول");
+                      } else if (loginEmailController.text.indexOf("@") == -1) {
+                        showInSnackBar("يرجى ادخال بريد الكتروني صحيح");
+                      } else {
+                        regs.login(
+                          loginEmailController.text,
+                          loginPasswordController.text,
+                          context,
+                          widget.pagecontroll,
+                        );
+                      }
+                    }),
               ),
             ],
           ),
@@ -557,7 +570,7 @@ class _LoginPageState extends State<LoginPage>
                         padding: EdgeInsets.only(
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
-                          controller: signupConfirmPasswordController,
+                          controller: signupPhoneController,
                           style: TextStyle(fontSize: 16.0, color: Colors.black),
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -607,7 +620,26 @@ class _LoginPageState extends State<LoginPage>
                         ),
                       ),
                     ),
-                    onPressed: () => showInSnackBar("SignUp button pressed")),
+                    onPressed: () {
+                      if (signupNameController.text == "" ||
+                          signupEmailController.text == "" ||
+                          signupPasswordController.text == "" ||
+                          signupPhoneController.text == "") {
+                        showInSnackBar("يرجى ملئ جميع الحقول");
+                      } else if (signupEmailController.text.indexOf("@") ==
+                          -1) {
+                        showInSnackBar("يرجى ادخال بريد الكتروني صحيح");
+                      } else {
+                        regs.register(
+                          signupNameController.text,
+                          signupEmailController.text,
+                          signupPasswordController.text,
+                          signupPhoneController.text,
+                          context,
+                          widget.pagecontroll,
+                        );
+                      }
+                    }),
               ),
             ],
           ),

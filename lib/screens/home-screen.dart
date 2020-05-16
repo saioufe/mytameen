@@ -174,6 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<Registration>(context, listen: false).googleFirstMove();
+    Provider.of<Registration>(context, listen: false).checkLogin();
     return Container(
       color: Theme.of(context).canvasColor,
       child: Scaffold(

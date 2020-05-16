@@ -276,7 +276,7 @@ class Template extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Image.network(
-                              allCategories.categories[index].image,
+                              "${AllProvider.hostName}/images/categories/${allCategories.categories[index].image}",
                               width: 50,
                               height: 50,
                             ),

@@ -231,6 +231,8 @@ class _AccountScreenState extends State<AccountScreen>
                         .handleSignOut()
                         .then((value) => Registration.isLogin = false)
                         .then((value) => widget.pagecontroll.jumpToPage(3));
+                  } else if (Registration.theMethodRegistered == "3"){
+                    regs.signOutEmail(widget.pagecontroll , context);
                   }
                 },
                 child: new SettingBar(
