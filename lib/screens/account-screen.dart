@@ -8,6 +8,7 @@ import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/providers/registrition.dart';
 import 'package:my_tameen/screens/contactUs-screen.dart';
 import 'package:my_tameen/screens/questions-screen.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 //import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,8 +35,8 @@ class _AccountScreenState extends State<AccountScreen>
   String appVersion = " v 1.0.0";
   String currencyName;
   List<Widget> listViews = List<Widget>();
-  Color notificationColor = Colors.green.withOpacity(0.5);
-  bool notificationIsActive = true;
+  Color notificationColor = Colors.green;
+  bool notificationIsActive;
   String notificationText = "مفعل";
   var platform = MethodChannel('crossingthestreams.io/resourceResolver');
   var scrollController = ScrollController();
@@ -44,7 +45,6 @@ class _AccountScreenState extends State<AccountScreen>
   Animation<double> topBarAnimationButton;
   double topBarOpacity = 0.0;
   String url = "pandoraltd.com";
-
   // Future<void> _cancelNotification() async {
   //   await flutterLocalNotificationsPlugin.cancel(0);
   //   await flutterLocalNotificationsPlugin.cancel(1);
@@ -52,14 +52,7 @@ class _AccountScreenState extends State<AccountScreen>
 
   @override
   void initState() {
-    // flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    // super.initState();
-    // var initializationSettingsAndroid =
-    //     AndroidInitializationSettings('@mipmap/ic_launcher');
-    // var initializationSettingsIOS = IOSInitializationSettings();
-    // var initializationSettings = InitializationSettings(
-    //     initializationSettingsAndroid, initializationSettingsIOS);
-    // flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    checkNotification();
     topBarAnimation = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
           parent: widget.animationController,
@@ -90,6 +83,29 @@ class _AccountScreenState extends State<AccountScreen>
         }
       }
     });
+  }
+
+  void checkNotification() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if (prefs.containsKey("notification")) {
+      notificationIsActive = prefs.getBool("notification");
+    }
+
+    if (notificationIsActive == true) {
+      await OneSignal.shared.setSubscription(true);
+      setState(() {
+        notificationText = "مفعل"[Languages.selectedLanguage];
+        notificationColor = Colors.green;
+      });
+    } else {
+      await OneSignal.shared.setSubscription(false);
+      setState(() {
+        notificationText = "متوقف"[Languages.selectedLanguage];
+        notificationColor = Colors.red;
+      });
+    }
+    print(notificationIsActive);
   }
 
   Widget getMainData() {
@@ -182,27 +198,27 @@ class _AccountScreenState extends State<AccountScreen>
                         ),
                       ],
                     ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    MyOrdersScreen.routeName, // arguments: news
-                  );
-                },
-                child: new SettingBar(
-                    lang.translation['myorders'][Languages.selectedLanguage],
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          "4",
-                          style: TextStyle(color: Colors.green, fontSize: 15),
-                        ),
-                        Icon(
-                          Ionicons.md_list_box,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ],
-                    )),
-              ),
+              // InkWell(
+              //   onTap: () {
+              //     Navigator.of(context).pushNamed(
+              //       MyOrdersScreen.routeName, // arguments: news
+              //     );
+              //   },
+              //   child: new SettingBar(
+              //       lang.translation['myorders'][Languages.selectedLanguage],
+              //       Row(
+              //         children: <Widget>[
+              //           Text(
+              //             "4",
+              //             style: TextStyle(color: Colors.green, fontSize: 15),
+              //           ),
+              //           Icon(
+              //             Ionicons.md_list_box,
+              //             color: Theme.of(context).primaryColor,
+              //           ),
+              //         ],
+              //       )),
+              // ),
               InkWell(
                 onTap: () {
                   if (Registration.theMethodRegistered == "1") {
@@ -275,9 +291,12 @@ class _AccountScreenState extends State<AccountScreen>
               Column(
                 children: <Widget>[
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
                       setState(() {
                         notificationIsActive = !notificationIsActive;
+                        prefs.setBool("notification", notificationIsActive);
                       });
                       if (notificationIsActive == true) {
                         setState(() {
@@ -299,7 +318,11 @@ class _AccountScreenState extends State<AccountScreen>
                       lang.translation['notificationActivate']
                           [Languages.selectedLanguage],
                       Text(
-                        notificationText,
+                        notificationIsActive == true
+                            ? lang.translation['notificationStatusActive']
+                                [Languages.selectedLanguage]
+                            : lang.translation['notificationStatusInactive']
+                                [Languages.selectedLanguage],
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,

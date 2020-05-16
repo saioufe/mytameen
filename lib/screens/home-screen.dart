@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/providers/allProvider.dart';
 import 'package:my_tameen/providers/languages.dart';
+import 'package:my_tameen/providers/registrition.dart';
 import 'package:my_tameen/widgets/category-home-template.dart';
 import 'package:my_tameen/widgets/news-home-template.dart';
 import 'package:my_tameen/widgets/offers-home-template.dart';
@@ -158,6 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
       listViews.add(
         StartOrderWidget(
+          pageController: widget.pagecontroll,
           animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
               parent: widget.animationController,
               curve:
@@ -171,6 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<Registration>(context, listen: false).googleFirstMove();
     return Container(
       color: Theme.of(context).canvasColor,
       child: Scaffold(

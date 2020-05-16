@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/models/News.dart';
+import 'package:my_tameen/models/offers.dart';
 import 'package:my_tameen/screens/pressed-news-screen.dart';
+import 'package:my_tameen/screens/pressed-offers-screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/allProvider.dart';
 
-class NewsTemplate extends StatelessWidget {
+class OffersTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final allPosts = Provider.of<AllProvider>(context, listen: false);
     return SizedBox(
       //height: MediaQuery.of(context).size.height * 3.55,
       child: Column(
-          children: allPosts.news.map((item) {
+          children: allPosts.offers.map((item) {
         return Template(
-          news: News(
+          offers: Offers(
             id: item.id,
             title: item.title,
             text: item.text,
             date: item.date,
-            postImage: item.postImage,
+            image: item.image,
           ),
         );
       }).toList()),
@@ -27,10 +29,10 @@ class NewsTemplate extends StatelessWidget {
 }
 
 class Template extends StatelessWidget {
-  final News news;
+  final Offers offers;
   const Template({
     Key key,
-    @required this.news,
+    @required this.offers,
   }) : super(key: key);
 
   @override
@@ -38,7 +40,7 @@ class Template extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context)
-            .pushNamed(NewsPressedScreen.routeName, arguments: news);
+            .pushNamed(OffersPressedScreen.routeName, arguments: offers);
       },
       child: Card(
         semanticContainer: true,
@@ -52,12 +54,12 @@ class Template extends StatelessWidget {
           children: <Widget>[
             Container(
               child: Hero(
-                tag: news.id,
+                tag: offers.id,
                 child: FadeInImage(
                   placeholder: AssetImage('assets/images/car.jpg'),
                   height: MediaQuery.of(context).size.height * 0.35,
                   image: NetworkImage(
-                      "${AllProvider.hostName}/images/posts/${news.postImage}"),
+                      "${AllProvider.hostName}/images/offers/${offers.image}"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -81,7 +83,7 @@ class Template extends StatelessWidget {
               margin: EdgeInsets.all(10),
               child: Center(
                 child: Text(
-                  news.title,
+                  offers.title,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                       fontFamily: 'tajawal',
@@ -98,7 +100,7 @@ class Template extends StatelessWidget {
                 width: MediaQuery.of(context).size.width / 1.7,
                 child: Center(
                   child: Text(
-                    news.date,
+                    offers.date,
                     textAlign: TextAlign.right,
                     style: TextStyle(
                       fontFamily: 'tajawal',

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_tameen/models/categories.dart';
 import 'package:my_tameen/providers/allProvider.dart';
 import 'package:my_tameen/providers/languages.dart';
+import 'package:my_tameen/widgets/category-template.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CategoriesScreen extends StatefulWidget {
   @override
@@ -167,24 +170,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            // SizedBox(
-                            //   height: 38,
-                            //   width: 38,
-                            //   child: InkWell(
-                            //     highlightColor: Colors.transparent,
-                            //     borderRadius:
-                            //         BorderRadius.all(Radius.circular(32.0)),
-                            //     onTap: () {
-                            //       Navigator.pop(context);
-                            //     },
-                            //     child: Center(
-                            //       child: Icon(
-                            //         Icons.keyboard_arrow_left,
-                            //         color: Theme.of(context).bottomAppBarColor,
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -202,30 +187,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                 ),
                               ),
                             ),
-                            // Container(
-                            //   width: 35,
-                            //   height: 35,
-                            //   decoration: BoxDecoration(
-                            //     color: Theme.of(context).bottomAppBarColor
-                            //         .withOpacity(topBarOpacity * 0.1),
-                            //     borderRadius: BorderRadius.all(
-                            //       Radius.circular(20),
-                            //     ),
-                            //   ),
-                            //   child: InkWell(
-                            //     child: Icon(Icons.data_usage),
-                            //     onTap: () {
-                            //       Navigator.push(
-                            //         context,
-                            //         MaterialPageRoute(
-                            //           builder: (context) => AllInsertsScreen(
-                            //               animationController:
-                            //                   widget.animationController),
-                            //         ),
-                            //       );
-                            //     },
-                            //   ),
-                            // ),
                           ],
                         ),
                       )
@@ -241,159 +202,75 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   }
 }
 
-class MainData extends StatelessWidget {
+class MainData extends StatefulWidget {
   final AnimationController animationController;
   final Animation animation;
 
   const MainData({Key key, this.animationController, this.animation})
       : super(key: key);
+
+  @override
+  _MainDataState createState() => _MainDataState();
+}
+
+class _MainDataState extends State<MainData> {
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-        animation: animationController,
-        builder: (BuildContext context, Widget child) {
-          return FadeTransition(
-            opacity: animation,
-            child: new Transform(
-              transform: new Matrix4.translationValues(
-                  0.0, 30 * (1.0 - animation.value), 0.0),
-              child: Column(
-                children: <Widget>[
-                  // SizedBox(
-                  //   height: 50,
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  //   children: <Widget>[
-                  //     Expanded(
-                  //       child: SizedBox(
-                  //         width: MediaQuery.of(context).size.width / 2,
-                  //       ),
-                  //     ),
-                  //     Expanded(
-                  //       child: Center(
-                  //         child: Text(
-                  //           'الفئات',
-                  //           style: TextStyle(
-                  //               fontWeight: FontWeight.w500,
-                  //               color: Theme.of(context).bottomAppBarColor,
-                  //               fontSize: 28),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 1.3,
-                    child: GridView.builder(
-                      // controller: scrollController,
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 1,
-                        childAspectRatio: 1.0,
-                        mainAxisSpacing: 10.0,
-                        crossAxisSpacing: 10.0,
-                      ),
-                      itemCount: 6,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          padding: EdgeInsets.all(15),
+    final allCategories = Provider.of<AllProvider>(context, listen: false);
+
+    return allCategories.newsDataOffline2 == null
+        ? FutureBuilder(
+            future: allCategories.fetchDataCategories(),
+            builder: (ctx, authResultSnap) {
+              if (authResultSnap.connectionState == ConnectionState.waiting) {
+                return Shimmer.fromColors(
+                    baseColor: Color(0xFFebeff2),
+                    highlightColor: Colors.grey.withOpacity(0.2),
+                    period: Duration(milliseconds: 300),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 165,
+                          width: MediaQuery.of(context).size.width / 1.1,
                           decoration: BoxDecoration(
-                            // border: Border.all(color: Theme.of(context).primaryColor ,width: 2),
-                            image: DecorationImage(
-                              colorFilter: ColorFilter.mode(
-                                  Colors.white70.withOpacity(0.96),
-                                  BlendMode.srcATop),
-                              repeat: ImageRepeat.repeatY,
-                              image: AssetImage(
-                                  "assets/images/png/transport1.png"),
-                              fit: BoxFit.cover,
-                            ),
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(18),
-                            ),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Theme.of(context)
-                                    .bottomAppBarColor
-                                    .withOpacity(0.2),
-                                offset: Offset(2.0, 3.0),
-                                blurRadius: 1.4,
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2.1,
-                                    child: Text(
-                                      "تامين السفر والسياحة",
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                      textDirection: TextDirection.rtl,
-                                      maxLines: 2,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.all(15),
-                                    width: 70,
-                                    height: 70,
-                                    decoration: BoxDecoration(
-                                      boxShadow: <BoxShadow>[
-                                        BoxShadow(
-                                          color: Theme.of(context)
-                                              .bottomAppBarColor
-                                              .withOpacity(0.2),
-                                          offset: Offset(2.0, 3.0),
-                                          blurRadius: 1.4,
-                                        ),
-                                      ],
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    child: Image.asset(
-                                        "assets/images/png/transport1.png"),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                margin: EdgeInsets.symmetric(horizontal: 30.0),
-                                child: Text(
-                                  "هنا يتم وضع وصف نوع التامين بلتفصيل يفضل شرح بسيط ",
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.justify,
-                                  textDirection: TextDirection.rtl,
-                                  maxLines: 3,
-                                  style: TextStyle(fontSize: 17),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  )
-                ],
-              ),
-            ),
-          );
-        });
+                              color: Theme.of(context).canvasColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(32))),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          height: 165,
+                          width: MediaQuery.of(context).size.width / 1.1,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).canvasColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(32))),
+                        ),
+                      ],
+                    ));
+              } else if (authResultSnap.hasError) {
+                print(authResultSnap.error);
+                return RaisedButton(
+                  onPressed: () {
+                    setState(() {
+                      //other.getUserLocation();
+                    });
+                  },
+                  child: Text("تفقد من الاتصال بلانترنت",
+                      style: TextStyle(color: Colors.black)),
+                );
+              } else {
+                return CategoryTemplate(
+                    animationController: widget.animationController,
+                    animation: widget.animation);
+              }
+            })
+        : CategoryTemplate(
+            animationController: widget.animationController,
+            animation: widget.animation);
   }
 }
+
+

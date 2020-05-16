@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/widgets/news-template.dart';
+import 'package:my_tameen/widgets/offers-template.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -60,9 +61,9 @@ class _OffersScreenState extends State<OffersScreen> {
                     padding: const EdgeInsets.only(top: 20.0),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      child: allposts.newsDataOffline == null
+                      child: allposts.newsDataOffline3 == null
                           ? FutureBuilder(
-                              future: allposts.fetchDataNews(),
+                              future: allposts.fetchDataOffers(),
                               builder: (ctx, authResultSnap) {
                                 if (authResultSnap.connectionState ==
                                     ConnectionState.waiting) {
@@ -114,10 +115,10 @@ class _OffersScreenState extends State<OffersScreen> {
                                         style: TextStyle(color: Colors.black)),
                                   );
                                 } else {
-                                  return NewsTemplate();
+                                  return OffersTemplate();
                                 }
                               })
-                          : NewsTemplate(),
+                          : OffersTemplate(),
                     ),
                   ),
 
