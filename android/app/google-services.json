@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "543732834209-3g90658ut6p8jpk4b3b6mk9n0n28aj7r.apps.googleusercontent.com",
+          "client_id": "543732834209-ii7joum7phhgplbqrnemeibagvkkd21d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.creativeprojects.mytameen",
-            "certificate_hash": "de16dec9fce0838b8aba438970f51aba76818ebd"
+            "certificate_hash": "8aaef0cd816ccc140341227b47e4e2a608adcb38"
           }
         },
         {
@@ -38,6 +38,13 @@
             {
               "client_id": "543732834209-voefej9td2toa8uimkdaks7thnjbch3e.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "543732834209-c6ctp3hk06n3i6hhaaaeq4383jsr5sdv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.creativeprojects.mytameen"
+              }
             }
           ]
         }
