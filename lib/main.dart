@@ -56,7 +56,7 @@ void main() async {
       theme: ThemeData(
         fontFamily: 'frutiger',
         textTheme: TextTheme(
-          subtitle2: TextStyle(
+          subtitle: TextStyle(
             fontFamily: "frutiger",
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -70,23 +70,23 @@ void main() async {
         appBarTheme: AppBarTheme(
           color: Color(0xFF37d2b3),
           textTheme: TextTheme(
-            headline6: TextStyle(
+            headline: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
       ),
-      home: MainScreen(),
+      home: 
+      SplashScreen.navigate(
+        name: 'assets/images/MyTamenSplash.flr',
+        next: (_) => MainScreen(),
+        until: () => Future.delayed(Duration(seconds: 1)),
+        startAnimation: 'intro',
+        backgroundColor: Colors.white,
+        endAnimation: '1',
+      ),
 
-      // SplashScreen.navigate(
-      //   name: 'assets/images/hairderLab.flr',
-      //   next: (_) => MainScreen(),
-      //   until: () => Future.delayed(Duration(seconds: 1)),
-      //   startAnimation: 'Untitled',
-      //   backgroundColor: Colors.white,
-      //   endAnimation: '1',
-      // ),
       routes: {
         NewsPressedScreen.routeName: (ctx) => NewsPressedScreen(),
         OffersPressedScreen.routeName: (ctx) => OffersPressedScreen(),

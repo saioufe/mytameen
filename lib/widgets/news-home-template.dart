@@ -113,7 +113,7 @@ class _NewsHomeTemplateState extends State<NewsHomeTemplate> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(18.0),
                                       child: Image.asset(
-                                        "assets/images/car.jpg",
+                                        "assets/images/placeholder.png",
                                         fit: BoxFit.cover,
                                       ),
                                     )

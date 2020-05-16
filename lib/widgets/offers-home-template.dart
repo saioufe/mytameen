@@ -115,7 +115,7 @@ class _OffersHomeTemplateState extends State<OffersHomeTemplate> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(18.0),
                                       child: Image.asset(
-                                        "assets/images/house.jpg",
+                                        "assets/images/placeholder.png",
                                         fit: BoxFit.cover,
                                       ),
                                     )
@@ -129,7 +129,7 @@ class _OffersHomeTemplateState extends State<OffersHomeTemplate> {
                                     width:
                                         MediaQuery.of(context).size.width / 1.4,
                                     child: Text(
-                                      "هنا يتم كتابة عنوان الموضوع ",
+                                      "",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 15,
@@ -272,7 +272,7 @@ class Template extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(18.0),
                           child: Image.network(
-                            "${AllProvider.hostName}/images/posts/${allposts.offers[0].image}",
+                            "${AllProvider.hostName}/images/offers/${allposts.offers[0].image}",
                             fit: BoxFit.cover,
                           ),
                         )

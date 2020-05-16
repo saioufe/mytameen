@@ -3,6 +3,7 @@ import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/providers/registrition.dart';
 import 'package:my_tameen/screens/start-the-service.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StartOrderWidget extends StatelessWidget {
   final AnimationController animationController;
@@ -25,10 +26,17 @@ class StartOrderWidget extends StatelessWidget {
             transform: new Matrix4.translationValues(
                 0.0, 30 * (1.0 - animation.value), 0.0),
             child: InkWell(
-              onTap: () {
+              onTap: () async {
                 if (Registration.isLogin == false) {
                   pageController.jumpToPage(0);
-                } else {}
+                } else {
+                  final url = "http://www.mytamen.com";
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                }
                 //Navigator.of(context).pushNamed(StartTheService.routeName);
               },
               child: Column(
