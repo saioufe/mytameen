@@ -36,7 +36,7 @@ class _AccountScreenState extends State<AccountScreen>
   String currencyName;
   List<Widget> listViews = List<Widget>();
   Color notificationColor = Colors.green;
-  bool notificationIsActive;
+  bool notificationIsActive = true;
   String notificationText = "مفعل";
   var platform = MethodChannel('crossingthestreams.io/resourceResolver');
   var scrollController = ScrollController();

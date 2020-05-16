@@ -127,7 +127,7 @@ class _NewsHomeTemplateState extends State<NewsHomeTemplate> {
                                     width:
                                         MediaQuery.of(context).size.width / 1.4,
                                     child: Text(
-                                      "هنا يتم كتابة عنوان الموضوع ",
+                                      "",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 15,

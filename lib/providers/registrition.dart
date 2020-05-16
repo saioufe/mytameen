@@ -39,6 +39,13 @@ class Registration extends ChangeNotifier {
         theMethodRegistered = "1";
         print(theMethodRegistered);
         userName = profile['name'];
+
+        await http
+            .post("${AllProvider.hostName}/insert-user-social.php", body: {
+          "name": profile['name'],
+          "email": profile['email'],
+        });
+
         _showMessage('''
          Logged in!      
          Token: ${accessToken.token}
@@ -71,7 +78,8 @@ class Registration extends ChangeNotifier {
   }
 
   void googleFirstMove() {
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
+    _googleSignIn.onCurrentUserChanged
+        .listen((GoogleSignInAccount account) async {
       currentUser = account;
 
       if (currentUser != null) {
@@ -79,10 +87,15 @@ class Registration extends ChangeNotifier {
         isLogin = true;
         userName = currentUser.displayName;
         theMethodRegistered = "2";
+
         print(theMethodRegistered);
         //Text(_currentUser.email)
         notifyListeners();
       }
+      await http.post("${AllProvider.hostName}/insert-user-social.php", body: {
+        "name": currentUser.displayName,
+        "email": currentUser.email,
+      });
     });
     _googleSignIn.signInSilently();
   }
@@ -239,7 +252,6 @@ class Registration extends ChangeNotifier {
 
         isLogin = true;
         theMethodRegistered = "3";
-
 
         _user = loadedUser;
         pageController.jumpToPage(3);
