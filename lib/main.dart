@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/providers/allProvider.dart';
+import 'package:my_tameen/providers/importantQuestion.dart';
 import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/providers/registrition.dart';
 import 'package:my_tameen/screens/contactUs-screen.dart';
@@ -49,6 +50,9 @@ void main() async {
       ChangeNotifierProvider.value(
         value: Registration(),
       ),
+      ChangeNotifierProvider.value(
+        value: ImportantQuestions(),
+      ),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -77,8 +81,7 @@ void main() async {
           ),
         ),
       ),
-      home: 
-      SplashScreen.navigate(
+      home: SplashScreen.navigate(
         name: 'assets/images/MyTamenSplash.flr',
         next: (_) => MainScreen(),
         until: () => Future.delayed(Duration(seconds: 1)),
@@ -86,7 +89,6 @@ void main() async {
         backgroundColor: Colors.white,
         endAnimation: '1',
       ),
-
       routes: {
         NewsPressedScreen.routeName: (ctx) => NewsPressedScreen(),
         OffersPressedScreen.routeName: (ctx) => OffersPressedScreen(),

@@ -12,7 +12,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AllProvider extends ChangeNotifier {
-  static const String hostName = "https://mytameen.pandoradevs.com";
+  static const String hostName = "http://cms.mytamen.com";
   static bool buildOnce1 = false;
   static bool buildOnce2 = false;
   static bool buildOnce3 = false;

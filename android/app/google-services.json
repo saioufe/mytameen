@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "543732834209-gsgk714arcv8k77vpoalo54lft2hdtr6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.creativeprojects.mytameen",
+            "certificate_hash": "de16dec9fce0838b8aba438970f51aba76818ebd"
+          }
+        },
+        {
           "client_id": "543732834209-ii7joum7phhgplbqrnemeibagvkkd21d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

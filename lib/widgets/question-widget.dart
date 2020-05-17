@@ -34,6 +34,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           ),
           title: Text(
             widget.question,
+            textDirection: TextDirection.rtl,
             style: TextStyle(color: Colors.black),
           ),
           onExpansionChanged: (value) {
