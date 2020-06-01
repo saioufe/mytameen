@@ -3,11 +3,13 @@ import 'package:my_tameen/providers/allProvider.dart';
 import 'package:my_tameen/providers/importantQuestion.dart';
 import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/providers/registrition.dart';
+import 'package:my_tameen/screens/category-pressed-screen.dart';
 import 'package:my_tameen/screens/contactUs-screen.dart';
 import 'package:my_tameen/screens/main-screen.dart';
 import 'package:my_tameen/screens/offers-screen.dart';
 import 'package:my_tameen/screens/pressed-news-screen.dart';
 import 'package:my_tameen/screens/pressed-offers-screen.dart';
+import 'package:my_tameen/screens/pressed-service-image-screen.dart';
 import 'package:my_tameen/screens/questions-screen.dart';
 import 'package:my_tameen/screens/start-the-service.dart';
 import 'package:provider/provider.dart';
@@ -97,6 +99,9 @@ void main() async {
         QuestionsScreen.routeName: (ctx) => QuestionsScreen(),
         ContactUsScreen.routeName: (ctx) => ContactUsScreen(),
         OffersScreen.routeName: (ctx) => OffersScreen(),
+        CategoryPressedScreen.routeName: (ctx) => CategoryPressedScreen(),
+        PressedServiceImageScreen.routeName: (ctx) =>
+            PressedServiceImageScreen(),
         //StartTheService.routeName: (ctx) => StartTheService(),
       },
     ),

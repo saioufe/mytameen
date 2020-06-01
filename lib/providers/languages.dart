@@ -61,7 +61,6 @@ class Languages extends ChangeNotifier {
       'الفئات',
       'Categories',
     ],
- 
     'homeTitle': [
       'الرئيسية',
       'Home',
@@ -83,10 +82,10 @@ class Languages extends ChangeNotifier {
       'Choose Language',
     ],
     'startInsuranceNow': [
-      'اطلب تامينك الان !!!',
+      ' !!! اطلب تامينك الان',
       'Start your insurance now !!',
     ],
-        'startService': [
+    'startService': [
       'ابدء الخدمة',
       'Start Service',
     ],
@@ -117,6 +116,10 @@ class Languages extends ChangeNotifier {
     'mytameen': [
       'ماي تاميين',
       'My Tameen',
+    ],
+    'servicesTitle': [
+      'الخدمات للفئة',
+      'Category services',
     ],
   };
   static int selectedLanguage = 0;

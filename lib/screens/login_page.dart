@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/providers/registrition.dart';
 import 'package:my_tameen/widgets/bubble_indication_painter.dart';
 import 'package:provider/provider.dart';
@@ -698,9 +699,10 @@ class _LoginPageState extends State<LoginPage>
                 padding: EdgeInsets.only(top: 10.0, right: 40.0),
                 child: GestureDetector(
                   onTap: () {
-                    regs
-                        .loginFacebook()
-                        .then((value) => widget.pagecontroll.jumpToPage(3));
+                    regs.loginFacebook().then((value) =>
+                        Languages.selectedLanguage == 0
+                            ? widget.pagecontroll.jumpToPage(3)
+                            : widget.pagecontroll.jumpToPage(0));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
@@ -719,9 +721,10 @@ class _LoginPageState extends State<LoginPage>
                 padding: EdgeInsets.only(top: 10.0),
                 child: GestureDetector(
                   onTap: () {
-                    regs
-                        .handleSignInGoogle()
-                        .then((value) => widget.pagecontroll.jumpToPage(3));
+                    regs.handleSignInGoogle().then((value) =>
+                        Languages.selectedLanguage == 0
+                            ? widget.pagecontroll.jumpToPage(3)
+                            : widget.pagecontroll.jumpToPage(0));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(15.0),

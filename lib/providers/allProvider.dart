@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:my_tameen/models/News.dart';
 import 'package:my_tameen/models/categories.dart';
 import 'package:my_tameen/models/offers.dart';
+import 'package:my_tameen/models/services.dart';
 import 'package:my_tameen/models/slider.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,7 +17,6 @@ class AllProvider extends ChangeNotifier {
   static bool buildOnce1 = false;
   static bool buildOnce2 = false;
   static bool buildOnce3 = false;
-
 
   List<Categories> _categories = [];
   List<Categories> get categories {
@@ -78,7 +78,9 @@ class AllProvider extends ChangeNotifier {
       loadedNews.add(News(
         id: newsId["id"],
         title: newsId["title"],
+        titleEnglish: newsId["titleEnglish"],
         text: newsId["text"],
+        textEnglish: newsId['textEnglish'],
         date: newsId["date"],
         postImage: newsId["image"],
       ));
@@ -108,7 +110,9 @@ class AllProvider extends ChangeNotifier {
       loadedOffers.add(Offers(
         id: newsId["id"],
         title: newsId["title"],
+        titleEnglish: newsId["titleEnglish"],
         text: newsId["text"],
+        textEnglish: newsId['textEnglish'],
         image: newsId['image'],
         date: newsId['date'],
       ));
@@ -145,15 +149,35 @@ class AllProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // List<Patient> _patient = [];
-  // List<Patient> get patient {
-  //   return [..._patient];
-  // }
+  List<Services> _services = [];
+  List<Services> get services {
+    return _services;
+  }
 
-
-
-
-
+  List data5 = [];
+  List<Services> loadedServices;
+  List<dynamic> newsDataOffline5;
+  Future<void> fetchDataServices(String category) async {
+    await http.post("${AllProvider.hostName}/get-services-flutter.php", body: {
+      "category": category,
+    }).then((response) {
+      data5 = json.decode(response.body);
+      //print(response.body);
+      final List<Services> loadedServices = [];
+      if (data5 == null) {
+        return;
+      }
+      newsDataOffline5 = data5;
+      data5.forEach((newsId) {
+        loadedServices.add(Services(
+          description: newsId['description'],
+          images: newsId['images'],
+        ));
+      });
+      _services = loadedServices;
+      notifyListeners();
+    });
+  }
 
   Future<bool> checkConnection() async {
     final url = '$hostName/get-posts-flutter.php';

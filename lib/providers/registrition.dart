@@ -105,6 +105,8 @@ class Registration extends ChangeNotifier {
       'email',
       'https://www.googleapis.com/auth/contacts.readonly',
     ],
+    hostedDomain: "",
+    clientId: "",
   );
 
   Future<void> handleGetContact() async {

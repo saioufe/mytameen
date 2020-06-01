@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   Widget tabBody = Container(
     color: Color(0xFFecedf1),
   );
-  int _currentIndex = 3;
+  int _currentIndex = Languages.selectedLanguage == 0 ? 3 : 0;
   PageController _pageController;
 
   @override
@@ -75,27 +75,43 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       ),
       body: SizedBox.expand(
         child: PageView(
-          controller: _pageController,
-          onPageChanged: (index) {
-            setState(() => _currentIndex = index);
-          },
-          children: <Widget>[
-            Registration.isLogin == true
-                ? AccountScreen(
-                    animationController3,
-                    _pageController,
-                  )
-                : LoginPage(
-                    _pageController,
-                  ),
-            NewsScreen(),
-            CategoriesScreen(animationController: animationController),
-            HomeScreen(
-              animationController: animationController2,
-              pagecontroll: _pageController,
-            ),
-          ],
-        ),
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() => _currentIndex = index);
+            },
+            children: Languages.selectedLanguage == 0
+                ? <Widget>[
+                    Registration.isLogin == true
+                        ? AccountScreen(
+                            animationController3,
+                            _pageController,
+                          )
+                        : LoginPage(
+                            _pageController,
+                          ),
+                    NewsScreen(),
+                    CategoriesScreen(animationController: animationController),
+                    HomeScreen(
+                      animationController: animationController2,
+                      pagecontroll: _pageController,
+                    ),
+                  ]
+                : <Widget>[
+                    HomeScreen(
+                      animationController: animationController2,
+                      pagecontroll: _pageController,
+                    ),
+                    CategoriesScreen(animationController: animationController),
+                    NewsScreen(),
+                    Registration.isLogin == true
+                        ? AccountScreen(
+                            animationController3,
+                            _pageController,
+                          )
+                        : LoginPage(
+                            _pageController,
+                          ),
+                  ]),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -103,55 +119,115 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             color: Colors.white),
         height: 50,
         child: BottomNavyBar(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          itemCornerRadius: 30,
-          showElevation: false,
-          animationDuration: Duration(milliseconds: 100),
-          backgroundColor: Colors.transparent,
-          selectedIndex: _currentIndex,
-          onItemSelected: (index) {
-            setState(() => _currentIndex = index);
-            _pageController.jumpToPage(index);
-          },
-          items: <BottomNavyBarItem>[
-            BottomNavyBarItem(
-                inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
-                activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
-                title: Text(
-                  lang.translation['myaccount'][Languages.selectedLanguage],
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.subtitle,
-                ),
-                icon: Icon(MaterialIcons.perm_identity)),
-            BottomNavyBarItem(
-                inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
-                activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
-                title: Text(
-                  lang.translation['news'][Languages.selectedLanguage],
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.subtitle,
-                ),
-                icon: Icon(MaterialIcons.bubble_chart)),
-            BottomNavyBarItem(
-                inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
-                activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
-                title: Text(
-                  lang.translation['category'][Languages.selectedLanguage],
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.subtitle,
-                ),
-                icon: Icon(MaterialIcons.turned_in_not)),
-            BottomNavyBarItem(
-                inactiveColor: Theme.of(context).primaryColor.withOpacity(0.3),
-                activeColor: Theme.of(context).primaryColor.withOpacity(0.3),
-                title: Text(
-                  lang.translation['homeTitle'][Languages.selectedLanguage],
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.subtitle,
-                ),
-                icon: Icon(Icons.home)),
-          ],
-        ),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            itemCornerRadius: 30,
+            showElevation: false,
+            animationDuration: Duration(milliseconds: 100),
+            backgroundColor: Colors.transparent,
+            selectedIndex: _currentIndex,
+            onItemSelected: (index) {
+              setState(() => _currentIndex = index);
+              _pageController.jumpToPage(index);
+            },
+            items: Languages.selectedLanguage == 0
+                ? <BottomNavyBarItem>[
+                    BottomNavyBarItem(
+                        inactiveColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        activeColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        title: Text(
+                          lang.translation['myaccount']
+                              [Languages.selectedLanguage],
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.subtitle,
+                        ),
+                        icon: Icon(MaterialIcons.perm_identity)),
+                    BottomNavyBarItem(
+                        inactiveColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        activeColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        title: Text(
+                          lang.translation['news'][Languages.selectedLanguage],
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.subtitle,
+                        ),
+                        icon: Icon(MaterialIcons.bubble_chart)),
+                    BottomNavyBarItem(
+                        inactiveColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        activeColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        title: Text(
+                          lang.translation['category']
+                              [Languages.selectedLanguage],
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.subtitle,
+                        ),
+                        icon: Icon(MaterialIcons.turned_in_not)),
+                    BottomNavyBarItem(
+                        inactiveColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        activeColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        title: Text(
+                          lang.translation['homeTitle']
+                              [Languages.selectedLanguage],
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.subtitle,
+                        ),
+                        icon: Icon(Icons.home)),
+                  ]
+                : <BottomNavyBarItem>[
+                    BottomNavyBarItem(
+                        inactiveColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        activeColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        title: Text(
+                          lang.translation['homeTitle']
+                              [Languages.selectedLanguage],
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.subtitle,
+                        ),
+                        icon: Icon(Icons.home)),
+                    BottomNavyBarItem(
+                        inactiveColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        activeColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        title: Text(
+                          lang.translation['category']
+                              [Languages.selectedLanguage],
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.subtitle,
+                        ),
+                        icon: Icon(MaterialIcons.turned_in_not)),
+                    BottomNavyBarItem(
+                        inactiveColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        activeColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        title: Text(
+                          lang.translation['news'][Languages.selectedLanguage],
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.subtitle,
+                        ),
+                        icon: Icon(MaterialIcons.bubble_chart)),
+                    BottomNavyBarItem(
+                        inactiveColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        activeColor:
+                            Theme.of(context).primaryColor.withOpacity(0.3),
+                        title: Text(
+                          lang.translation['myaccount']
+                              [Languages.selectedLanguage],
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.subtitle,
+                        ),
+                        icon: Icon(MaterialIcons.perm_identity)),
+                  ]),
       ),
     );
   }

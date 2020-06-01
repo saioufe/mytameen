@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/models/News.dart';
 import 'package:my_tameen/models/offers.dart';
+import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/screens/pressed-news-screen.dart';
 import 'package:my_tameen/screens/pressed-offers-screen.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,9 @@ class OffersTemplate extends StatelessWidget {
           offers: Offers(
             id: item.id,
             title: item.title,
+            titleEnglish: item.titleEnglish,
             text: item.text,
+            textEnglish: item.textEnglish,
             date: item.date,
             image: item.image,
           ),
@@ -83,7 +86,9 @@ class Template extends StatelessWidget {
               margin: EdgeInsets.all(10),
               child: Center(
                 child: Text(
-                  offers.title,
+                  Languages.selectedLanguage == 0
+                      ? offers.title
+                      : offers.titleEnglish,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                       fontFamily: 'tajawal',

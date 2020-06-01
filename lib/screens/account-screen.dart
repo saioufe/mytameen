@@ -225,14 +225,18 @@ class _AccountScreenState extends State<AccountScreen>
                     regs
                         .logOutFaceBook()
                         .then((value) => Registration.isLogin = false)
-                        .then((value) => widget.pagecontroll.jumpToPage(3));
+                        .then((value) => Languages.selectedLanguage == 0
+                            ? widget.pagecontroll.jumpToPage(3)
+                            : widget.pagecontroll.jumpToPage(3));
                   } else if (Registration.theMethodRegistered == "2") {
                     regs
                         .handleSignOut()
                         .then((value) => Registration.isLogin = false)
-                        .then((value) => widget.pagecontroll.jumpToPage(3));
-                  } else if (Registration.theMethodRegistered == "3"){
-                    regs.signOutEmail(widget.pagecontroll , context);
+                        .then((value) => Languages.selectedLanguage == 0
+                            ? widget.pagecontroll.jumpToPage(3)
+                            : widget.pagecontroll.jumpToPage(3));
+                  } else if (Registration.theMethodRegistered == "3") {
+                    regs.signOutEmail(widget.pagecontroll, context);
                   }
                 },
                 child: new SettingBar(

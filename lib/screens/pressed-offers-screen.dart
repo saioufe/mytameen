@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/models/News.dart';
 import 'package:my_tameen/models/offers.dart';
+import 'package:my_tameen/providers/languages.dart';
 import 'package:provider/provider.dart';
 //import 'package:reviews_slider/reviews_slider.dart';
 import '../providers/allProvider.dart';
@@ -45,7 +46,7 @@ class _OffersPressedScreenState extends State<OffersPressedScreen> {
                 background: Hero(
                   tag: newsData.id,
                   child: FadeInImage(
-                    placeholder: AssetImage('assets/images/car.jpg'),
+                    placeholder: AssetImage('assets/images/placeholder.png'),
                     height: MediaQuery.of(context).size.height * 0.35,
                     image: NetworkImage(
                         "${AllProvider.hostName}/images/posts/${newsData.image}"),
@@ -88,7 +89,9 @@ class _OffersPressedScreenState extends State<OffersPressedScreen> {
                             child: Column(
                               children: <Widget>[
                                 Text(
-                                  newsData.title,
+                                  Languages.selectedLanguage == 0
+                                      ? newsData.title
+                                      : newsData.titleEnglish,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       fontFamily: 'tajawal',
@@ -110,7 +113,9 @@ class _OffersPressedScreenState extends State<OffersPressedScreen> {
                         ),
                         Divider(),
                         Text(
-                          newsData.text,
+                          Languages.selectedLanguage == 0
+                              ? newsData.text
+                              : newsData.textEnglish,
                           textAlign: TextAlign.justify,
                           textDirection: TextDirection.rtl,
                           style: TextStyle(

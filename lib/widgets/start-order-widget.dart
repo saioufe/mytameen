@@ -47,7 +47,9 @@ class StartOrderWidget extends StatelessWidget {
                     child: Text(
                       lang.translation['startInsuranceNow']
                           [Languages.selectedLanguage],
-                      textAlign: TextAlign.right,
+                      textAlign: Languages.selectedLanguage == 0
+                          ? TextAlign.right
+                          : TextAlign.left,
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: Theme.of(context).bottomAppBarColor,

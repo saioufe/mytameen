@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/models/categories.dart';
+import 'package:my_tameen/screens/category-pressed-screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/allProvider.dart';
 
@@ -64,90 +65,98 @@ class CategoryItem extends StatelessWidget {
                     ),
                     itemCount: category.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        padding: EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          // border: Border.all(color: Theme.of(context).primaryColor ,width: 2),
-                          image: DecorationImage(
-                            colorFilter: ColorFilter.mode(
-                                Colors.white70.withOpacity(0.96),
-                                BlendMode.srcATop),
-                            repeat: ImageRepeat.repeatY,
-                            image: NetworkImage(
-                                "${AllProvider.hostName}/images/categories/${category[index].image}"),
-                            fit: BoxFit.cover,
-                          ),
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(18),
-                          ),
-                          boxShadow: <BoxShadow>[
-                            BoxShadow(
-                              color: Theme.of(context)
-                                  .bottomAppBarColor
-                                  .withOpacity(0.2),
-                              offset: Offset(2.0, 3.0),
-                              blurRadius: 1.4,
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                              CategoryPressedScreen.routeName,
+                              arguments: category[index]);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                            // border: Border.all(color: Theme.of(context).primaryColor ,width: 2),
+                            image: DecorationImage(
+                              colorFilter: ColorFilter.mode(
+                                  Colors.white70.withOpacity(0.96),
+                                  BlendMode.srcATop),
+                              repeat: ImageRepeat.repeatY,
+                              image: NetworkImage(
+                                  "${AllProvider.hostName}/images/categories/${category[index].image}"),
+                              fit: BoxFit.cover,
                             ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width / 2.1,
-                                  child: Text(
-                                    category[index].title,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.center,
-                                    textDirection: TextDirection.rtl,
-                                    maxLines: 2,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(15),
-                                  width: 70,
-                                  height: 70,
-                                  decoration: BoxDecoration(
-                                    boxShadow: <BoxShadow>[
-                                      BoxShadow(
-                                        color: Theme.of(context)
-                                            .bottomAppBarColor
-                                            .withOpacity(0.2),
-                                        offset: Offset(2.0, 3.0),
-                                        blurRadius: 1.4,
-                                      ),
-                                    ],
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(18),
+                            ),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                color: Theme.of(context)
+                                    .bottomAppBarColor
+                                    .withOpacity(0.2),
+                                offset: Offset(2.0, 3.0),
+                                blurRadius: 1.4,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.1,
+                                    child: Text(
+                                      category[index].title,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      textDirection: TextDirection.rtl,
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  child: Image.network(
-                                      "${AllProvider.hostName}/images/categories/${category[index].image}"),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(horizontal: 30.0),
-                              child: Text(
-                                category[index].text,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.justify,
-                                textDirection: TextDirection.rtl,
-                                maxLines: 3,
-                                style: TextStyle(fontSize: 17),
+                                  Container(
+                                    padding: EdgeInsets.all(15),
+                                    width: 70,
+                                    height: 70,
+                                    decoration: BoxDecoration(
+                                      boxShadow: <BoxShadow>[
+                                        BoxShadow(
+                                          color: Theme.of(context)
+                                              .bottomAppBarColor
+                                              .withOpacity(0.2),
+                                          offset: Offset(2.0, 3.0),
+                                          blurRadius: 1.4,
+                                        ),
+                                      ],
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: Image.network(
+                                        "${AllProvider.hostName}/images/categories/${category[index].image}"),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 30.0),
+                                child: Text(
+                                  category[index].text,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.justify,
+                                  textDirection: TextDirection.rtl,
+                                  maxLines: 3,
+                                  style: TextStyle(fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },

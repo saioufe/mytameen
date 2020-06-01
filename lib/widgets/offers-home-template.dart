@@ -44,49 +44,95 @@ class _OffersHomeTemplateState extends State<OffersHomeTemplate> {
                             Container(
                               width: MediaQuery.of(context).size.width / 1.3,
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.of(context)
-                                          .pushNamed(OffersScreen.routeName);
-                                    },
-                                    child: Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 8.0),
-                                          child: Icon(
-                                            Icons.keyboard_arrow_left,
-                                            size: 18,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: Languages.selectedLanguage == 0
+                                      ? <Widget>[
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.of(context).pushNamed(
+                                                  OffersScreen.routeName);
+                                            },
+                                            child: Row(
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8.0),
+                                                  child: Icon(
+                                                    Icons.keyboard_arrow_left,
+                                                    size: 18,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  lang.translation['MoreTitle'][
+                                                      Languages
+                                                          .selectedLanguage],
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Theme.of(context)
+                                                          .bottomAppBarColor,
+                                                      fontSize: 15),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          lang.translation['MoreTitle']
-                                              [Languages.selectedLanguage],
-                                          textAlign: TextAlign.right,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Theme.of(context)
-                                                  .bottomAppBarColor,
-                                              fontSize: 15),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Text(
-                                    lang.translation['LastOffers']
-                                        [Languages.selectedLanguage],
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color:
-                                            Theme.of(context).bottomAppBarColor,
-                                        fontSize: 20),
-                                  ),
-                                ],
-                              ),
+                                          Text(
+                                            lang.translation['LastOffers']
+                                                [Languages.selectedLanguage],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Theme.of(context)
+                                                    .bottomAppBarColor,
+                                                fontSize: 20),
+                                          ),
+                                        ]
+                                      : <Widget>[
+                                          Text(
+                                            lang.translation['LastOffers']
+                                                [Languages.selectedLanguage],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Theme.of(context)
+                                                    .bottomAppBarColor,
+                                                fontSize: 20),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.of(context).pushNamed(
+                                                  OffersScreen.routeName);
+                                            },
+                                            child: Row(
+                                              children: <Widget>[
+                                                Text(
+                                                  lang.translation['MoreTitle'][
+                                                      Languages
+                                                          .selectedLanguage],
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Theme.of(context)
+                                                          .bottomAppBarColor,
+                                                      fontSize: 15),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8.0),
+                                                  child: Icon(
+                                                    Icons.keyboard_arrow_right,
+                                                    size: 18,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
                             ),
                             SizedBox(
                               height: 10,
@@ -206,45 +252,84 @@ class Template extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width / 1.3,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(OffersScreen.routeName);
-                        },
-                        child: Row(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Icon(
-                                Icons.keyboard_arrow_left,
-                                size: 18,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: Languages.selectedLanguage == 0
+                          ? <Widget>[
+                              InkWell(
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .pushNamed(OffersScreen.routeName);
+                                },
+                                child: Row(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Icon(
+                                        Icons.keyboard_arrow_left,
+                                        size: 18,
+                                      ),
+                                    ),
+                                    Text(
+                                      lang.translation['MoreTitle']
+                                          [Languages.selectedLanguage],
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: Theme.of(context)
+                                              .bottomAppBarColor,
+                                          fontSize: 15),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Text(
-                              lang.translation['MoreTitle']
-                                  [Languages.selectedLanguage],
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Theme.of(context).bottomAppBarColor,
-                                  fontSize: 15),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Text(
-                        lang.translation['LastOffers']
-                            [Languages.selectedLanguage],
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context).bottomAppBarColor,
-                            fontSize: 20),
-                      ),
-                    ],
-                  ),
+                              Text(
+                                lang.translation['LastOffers']
+                                    [Languages.selectedLanguage],
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Theme.of(context).bottomAppBarColor,
+                                    fontSize: 20),
+                              ),
+                            ]
+                          : <Widget>[
+                              Text(
+                                lang.translation['LastOffers']
+                                    [Languages.selectedLanguage],
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Theme.of(context).bottomAppBarColor,
+                                    fontSize: 20),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .pushNamed(OffersScreen.routeName);
+                                },
+                                child: Row(
+                                  children: <Widget>[
+                                    Text(
+                                      lang.translation['MoreTitle']
+                                          [Languages.selectedLanguage],
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: Theme.of(context)
+                                              .bottomAppBarColor,
+                                          fontSize: 15),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Icon(
+                                        Icons.keyboard_arrow_right,
+                                        size: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ]),
                 ),
                 SizedBox(
                   height: 10,
