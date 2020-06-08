@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:my_tameen/models/News.dart';
 import 'package:my_tameen/models/categories.dart';
+import 'package:my_tameen/models/contact.dart';
 import 'package:my_tameen/models/offers.dart';
 import 'package:my_tameen/models/services.dart';
 import 'package:my_tameen/models/slider.dart';
@@ -175,6 +176,37 @@ class AllProvider extends ChangeNotifier {
         ));
       });
       _services = loadedServices;
+      notifyListeners();
+    });
+  }
+
+
+  List<ContactUs> _contact = [];
+  List<ContactUs> get contact {
+    return _contact;
+  }
+  List data6 = [];
+  List<ContactUs> loadedContact;
+  List<dynamic> newsDataOffline6;
+  Future<void> fetchDataContact(String category) async {
+    await http.post("${AllProvider.hostName}/get-contact-flutter.php", body: {
+      "category": category,
+    }).then((response) {
+      data6 = json.decode(response.body);
+      //print(response.body);
+      final List<ContactUs> loadedContact = [];
+      if (data6 == null) {
+        return;
+      }
+      newsDataOffline6 = data6;
+      data6.forEach((newsId) {
+        loadedContact.add(ContactUs(
+          phone1: newsId['phone1'],
+          phone2: newsId['phone2'],
+          email: newsId['email'],
+        ));
+      });
+      _contact = loadedContact;
       notifyListeners();
     });
   }

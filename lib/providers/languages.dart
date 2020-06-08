@@ -61,6 +61,10 @@ class Languages extends ChangeNotifier {
       'الفئات',
       'Categories',
     ],
+      'orderpage': [
+      'ابدا الطلب',
+      'start order',
+    ],
     'homeTitle': [
       'الرئيسية',
       'Home',

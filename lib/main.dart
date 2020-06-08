@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_tameen/providers/allProvider.dart';
 import 'package:my_tameen/providers/importantQuestion.dart';
 import 'package:my_tameen/providers/languages.dart';
+import 'package:my_tameen/providers/ordering.dart';
 import 'package:my_tameen/providers/registrition.dart';
 import 'package:my_tameen/screens/category-pressed-screen.dart';
 import 'package:my_tameen/screens/contactUs-screen.dart';
@@ -11,7 +12,7 @@ import 'package:my_tameen/screens/pressed-news-screen.dart';
 import 'package:my_tameen/screens/pressed-offers-screen.dart';
 import 'package:my_tameen/screens/pressed-service-image-screen.dart';
 import 'package:my_tameen/screens/questions-screen.dart';
-import 'package:my_tameen/screens/start-the-service.dart';
+import 'package:my_tameen/screens/the-order-started.dart';
 import 'package:provider/provider.dart';
 import 'package:flare_splash_screen/flare_splash_screen.dart';
 import './screens/myOrders-screen.dart';
@@ -55,6 +56,9 @@ void main() async {
       ChangeNotifierProvider.value(
         value: ImportantQuestions(),
       ),
+      ChangeNotifierProvider.value(
+        value: Ordering(),
+      ),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -83,14 +87,15 @@ void main() async {
           ),
         ),
       ),
-      home: SplashScreen.navigate(
-        name: 'assets/images/MyTamenSplash.flr',
-        next: (_) => MainScreen(),
-        until: () => Future.delayed(Duration(seconds: 1)),
-        startAnimation: 'intro',
-        backgroundColor: Colors.white,
-        endAnimation: '1',
-      ),
+      home: MainScreen(),
+      // SplashScreen.navigate(
+      //   name: 'assets/images/MyTamenSplash.flr',
+      //   next: (_) => MainScreen(),
+      //   until: () => Future.delayed(Duration(seconds: 1)),
+      //   startAnimation: 'intro',
+      //   backgroundColor: Colors.white,
+      //   endAnimation: '1',
+      // ),
       routes: {
         NewsPressedScreen.routeName: (ctx) => NewsPressedScreen(),
         OffersPressedScreen.routeName: (ctx) => OffersPressedScreen(),
@@ -100,8 +105,10 @@ void main() async {
         ContactUsScreen.routeName: (ctx) => ContactUsScreen(),
         OffersScreen.routeName: (ctx) => OffersScreen(),
         CategoryPressedScreen.routeName: (ctx) => CategoryPressedScreen(),
+        MainScreen.routeName: (ctx) => MainScreen(),
         PressedServiceImageScreen.routeName: (ctx) =>
             PressedServiceImageScreen(),
+        TheStartOrder.routeName: (ctx) => TheStartOrder(),
         //StartTheService.routeName: (ctx) => StartTheService(),
       },
     ),

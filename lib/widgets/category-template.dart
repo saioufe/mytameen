@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/models/categories.dart';
+import 'package:my_tameen/providers/registrition.dart';
 import 'package:my_tameen/screens/category-pressed-screen.dart';
+import 'package:my_tameen/screens/login_page.dart';
+import 'package:my_tameen/screens/the-order-started.dart';
 import 'package:provider/provider.dart';
 import '../providers/allProvider.dart';
 
@@ -67,9 +70,27 @@ class CategoryItem extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          Navigator.of(context).pushNamed(
-                              CategoryPressedScreen.routeName,
-                              arguments: category[index]);
+                          if (Registration.isLogin == true) {
+                            Navigator.of(context).pushNamed(
+                                TheStartOrder.routeName,
+                                arguments: category[index]);
+                          } else {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                            Scaffold.of(context).removeCurrentSnackBar();
+                            Scaffold.of(context).showSnackBar(new SnackBar(
+                              content: new Text(
+                                "يرجى تسجيل الدخول اولا",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                              backgroundColor: Colors.blue,
+                              duration: Duration(seconds: 15),
+                            ));
+                          }
                         },
                         child: Container(
                           padding: EdgeInsets.all(15),

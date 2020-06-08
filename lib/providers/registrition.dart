@@ -17,6 +17,7 @@ class Registration extends ChangeNotifier {
 
   static bool isLogin = false;
   static String userName;
+  static int userId;
   GoogleSignInAccount currentUser;
   String _contactText;
 
@@ -24,6 +25,7 @@ class Registration extends ChangeNotifier {
 
   String _message = 'Log in/out by pressing the buttons below.';
 
+ String userData4;
   Future<Null> loginFacebook() async {
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
 
@@ -44,6 +46,10 @@ class Registration extends ChangeNotifier {
             .post("${AllProvider.hostName}/insert-user-social.php", body: {
           "name": profile['name'],
           "email": profile['email'],
+        }).then((respon) {
+          userData4 = respon.body;
+          userId = int.parse(userData4);
+          print("google user id : $userId");
         });
 
         _showMessage('''
@@ -77,6 +83,7 @@ class Registration extends ChangeNotifier {
     //});
   }
 
+  String userData3;
   void googleFirstMove() {
     _googleSignIn.onCurrentUserChanged
         .listen((GoogleSignInAccount account) async {
@@ -95,6 +102,10 @@ class Registration extends ChangeNotifier {
       await http.post("${AllProvider.hostName}/insert-user-social.php", body: {
         "name": currentUser.displayName,
         "email": currentUser.email,
+      }).then((respon) {
+        userData3 = respon.body;
+        userId = int.parse(userData3);
+        print("google user id : $userId");
       });
     });
     _googleSignIn.signInSilently();
@@ -171,7 +182,7 @@ class Registration extends ChangeNotifier {
     return _user;
   }
 
-  String userData;
+  List userData = [];
   List<User> loadedUser = [];
   Future<Void> register(String name, String email, String password,
       String phone, BuildContext context, PageController pageController) async {
@@ -183,14 +194,17 @@ class Registration extends ChangeNotifier {
       "password": password,
       "phone": phone,
     }).then((respon) {
-      userData = respon.body;
-      if (userData == "0") {
+      //userData = respon.body;
+      userData = json.decode(respon.body);
+
+      if (userData[0][0] == "wrong") {
         isLogin = false;
         showInSnackBar("هذا الحساب موجود مسبقا", context);
-      } else if (userData == "1") {
+      } else if (userData[0][0] == "right") {
         showInSnackBar("تم التسجيل بنجاح", context);
 
         loadedUser.add(User(
+          id: userData[0][1],
           name: name,
           email: email,
           password: password,
@@ -201,6 +215,8 @@ class Registration extends ChangeNotifier {
         prefs.setString('password', password);
         prefs.setString('phone', phone);
         userName = name;
+        userId = userData[0][1];
+        print(userId);
         prefs.setString('username', name);
         isLogin = true;
         theMethodRegistered = "3";
@@ -239,22 +255,25 @@ class Registration extends ChangeNotifier {
         showInSnackBar("تم تسجيل الدخول", context);
         userData2.forEach((item) {
           loadedUser.add(User(
+            id: int.parse(item['id']),
             name: item['name'],
             email: item['email'],
             password: item['password'],
             phone: item['phone'],
           ));
+          prefs.setString('id', item['id']);
           prefs.setString('name', item['name']);
           prefs.setString('email', item['email']);
           prefs.setString('password', item['password']);
           prefs.setString('phone', item['phone']);
           userName = item['name'];
+          userId = int.parse(item['id']);
           prefs.setString('username', item['name']);
         });
 
         isLogin = true;
         theMethodRegistered = "3";
-
+        print("this is the user id : $userId");
         _user = loadedUser;
         pageController.jumpToPage(3);
         notifyListeners();
@@ -264,6 +283,7 @@ class Registration extends ChangeNotifier {
 
   signOutEmail(PageController pageController, BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("id");
     prefs.remove("name");
     prefs.remove("email");
     prefs.remove("password");
@@ -283,6 +303,7 @@ class Registration extends ChangeNotifier {
         theMethodRegistered = "3";
         loadedUser = [
           User(
+            id: int.parse(prefs.getString("id")),
             name: prefs.getString("name"),
             email: prefs.getString("email"),
             password: prefs.getString("password"),
@@ -290,6 +311,7 @@ class Registration extends ChangeNotifier {
           )
         ];
         userName = prefs.getString("name");
+        userId = int.parse(prefs.getString("id"));
         _user = loadedUser;
         // fetchUserFiles(loadedPatient[0].id);
         print("he is online");

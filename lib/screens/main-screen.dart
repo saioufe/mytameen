@@ -17,6 +17,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'myOrders-screen.dart';
 
 class MainScreen extends StatefulWidget {
+  static const routeName = '/main_screen';
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -73,6 +74,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           }
         },
       ),
+      
+
       body: SizedBox.expand(
         child: PageView(
             controller: _pageController,
@@ -126,6 +129,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             backgroundColor: Colors.transparent,
             selectedIndex: _currentIndex,
             onItemSelected: (index) {
+              
               setState(() => _currentIndex = index);
               _pageController.jumpToPage(index);
             },
@@ -160,12 +164,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         activeColor:
                             Theme.of(context).primaryColor.withOpacity(0.3),
                         title: Text(
-                          lang.translation['category']
+                          lang.translation['orderpage']
                               [Languages.selectedLanguage],
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.subtitle,
                         ),
-                        icon: Icon(MaterialIcons.turned_in_not)),
+                        icon: Icon(Icons.add_circle)),
                     BottomNavyBarItem(
                         inactiveColor:
                             Theme.of(context).primaryColor.withOpacity(0.3),
@@ -198,12 +202,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         activeColor:
                             Theme.of(context).primaryColor.withOpacity(0.3),
                         title: Text(
-                          lang.translation['category']
+                          lang.translation['orderpage']
                               [Languages.selectedLanguage],
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.subtitle,
                         ),
-                        icon: Icon(MaterialIcons.turned_in_not)),
+                        icon: Icon(Icons.add_circle)),
                     BottomNavyBarItem(
                         inactiveColor:
                             Theme.of(context).primaryColor.withOpacity(0.3),

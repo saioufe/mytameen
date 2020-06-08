@@ -198,27 +198,27 @@ class _AccountScreenState extends State<AccountScreen>
                         ),
                       ],
                     ),
-              // InkWell(
-              //   onTap: () {
-              //     Navigator.of(context).pushNamed(
-              //       MyOrdersScreen.routeName, // arguments: news
-              //     );
-              //   },
-              //   child: new SettingBar(
-              //       lang.translation['myorders'][Languages.selectedLanguage],
-              //       Row(
-              //         children: <Widget>[
-              //           Text(
-              //             "4",
-              //             style: TextStyle(color: Colors.green, fontSize: 15),
-              //           ),
-              //           Icon(
-              //             Ionicons.md_list_box,
-              //             color: Theme.of(context).primaryColor,
-              //           ),
-              //         ],
-              //       )),
-              // ),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    MyOrdersScreen.routeName, // arguments: news
+                  );
+                },
+                child: new SettingBar(
+                    lang.translation['myorders'][Languages.selectedLanguage],
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          "4",
+                          style: TextStyle(color: Colors.green, fontSize: 15),
+                        ),
+                        Icon(
+                          Ionicons.md_list_box,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ],
+                    )),
+              ),
               InkWell(
                 onTap: () {
                   if (Registration.theMethodRegistered == "1") {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_tameen/models/categories.dart';
 import 'package:my_tameen/providers/allProvider.dart';
 import 'package:my_tameen/providers/languages.dart';
+import 'package:my_tameen/providers/ordering.dart';
 import 'package:my_tameen/widgets/category-template.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -62,7 +63,19 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   void addAllListData() {
     var count = 1;
-
+    if (AllProvider.buildOnce2 == false) {
+      listViews.add(
+        SizedBox(
+          height: 50,
+          child: Text(
+            "اختر واحدة من الفئات",
+            textAlign: TextAlign.center,
+            style:
+                TextStyle(fontSize: 20, decoration: TextDecoration.underline),
+          ),
+        ),
+      );
+    }
     if (AllProvider.buildOnce2 == false) {
       listViews.add(
         MainData(
@@ -79,6 +92,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final allPosts = Provider.of<Ordering>(context, listen: false);
+
+    allPosts.selectedPromo = 0.0;
+    allPosts.checkPromoOnce = false;
+
     return Container(
       color: Theme.of(context).canvasColor,
       child: Scaffold(
@@ -174,7 +192,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  lang.translation['category']
+                                  lang.translation['orderpage']
                                       [Languages.selectedLanguage],
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -196,7 +214,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               ),
             );
           },
-        )
+        ),
       ],
     );
   }
@@ -272,5 +290,3 @@ class _MainDataState extends State<MainData> {
             animation: widget.animation);
   }
 }
-
-
