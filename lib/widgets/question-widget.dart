@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:groovin_widgets/groovin_expansion_tile.dart';
+import 'package:my_tameen/providers/languages.dart';
 
 class QuestionWidget extends StatefulWidget {
   final String question;
@@ -34,7 +35,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           ),
           title: Text(
             widget.question,
-            textDirection: TextDirection.rtl,
+            textAlign: TextAlign.justify,
+            textDirection: Languages.selectedLanguage == 0
+                ? TextDirection.rtl
+                : TextDirection.ltr,
             style: TextStyle(color: Colors.black),
           ),
           onExpansionChanged: (value) {
@@ -60,8 +64,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                     padding: const EdgeInsets.all(20),
                     child: Text(
                       widget.answer,
-                      textAlign: TextAlign.center,
-                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.justify,
+                      textDirection: Languages.selectedLanguage == 0
+                          ? TextDirection.rtl
+                          : TextDirection.ltr,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 17,

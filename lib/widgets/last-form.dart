@@ -32,6 +32,11 @@ class _LastFormState extends State<LastForm> {
   bool isLoading = false;
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
 
+  final focusUserName = FocusNode();
+  final focusPhone = FocusNode();
+  final focusAddres = FocusNode();
+  final focusImage = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     final allOrders = Provider.of<Ordering>(context, listen: false);
@@ -66,7 +71,12 @@ class _LastFormState extends State<LastForm> {
             initialValue: {
               'date': DateTime.now(),
               'accept_terms': false,
-            
+              'username': allOrders.lastName != null ? allOrders.lastName : "",
+              'phone': allOrders.lastPhone != null ? allOrders.lastPhone : "",
+              'address':
+                  allOrders.lastAddres != null ? allOrders.lastAddres : "",
+              'payway':
+                  allOrders.lastPayment != null ? allOrders.lastPayment : "",
             },
             autovalidate: true,
             child: Column(
@@ -366,12 +376,12 @@ class _LastFormState extends State<LastForm> {
                             ),
                             child: Row(
                               children: <Widget>[
-                                Icon(
-                                  Icons.monetization_on,
-                                  color: Colors.white,
-                                ),
+                                // Icon(
+                                //   Icons.monetization_on,
+                                //   color: Colors.white,
+                                // ),
                                 Text(
-                                  theLastPrice.toStringAsFixed(2),
+                                  "${theLastPrice.toStringAsFixed(2)} KWD",
                                   style: TextStyle(
                                       fontSize: 14, color: Colors.white),
                                 ),
@@ -452,12 +462,12 @@ class _LastFormState extends State<LastForm> {
                             ),
                             child: Row(
                               children: <Widget>[
-                                Icon(
-                                  Icons.monetization_on,
-                                  color: Colors.white,
-                                ),
+                                // Icon(
+                                //   Icons.monetization_on,
+                                //   color: Colors.white,
+                                // ),
                                 Text(
-                                  theLastPrice2.toStringAsFixed(2),
+                                  "${theLastPrice2.toStringAsFixed(2)} KWD",
                                   style: TextStyle(
                                       fontSize: 14, color: Colors.white),
                                 ),
@@ -538,12 +548,12 @@ class _LastFormState extends State<LastForm> {
                             ),
                             child: Row(
                               children: <Widget>[
-                                Icon(
-                                  Icons.monetization_on,
-                                  color: Colors.white,
-                                ),
+                                // Icon(
+                                //   Icons.monetization_on,
+                                //   color: Colors.white,
+                                // ),
                                 Text(
-                                  theLastPrice3.toStringAsFixed(2),
+                                  "${theLastPrice3.toStringAsFixed(2)} KWD",
                                   style: TextStyle(
                                       fontSize: 14, color: Colors.white),
                                 ),
@@ -582,6 +592,13 @@ class _LastFormState extends State<LastForm> {
                     ),
                   ),
                   child: FormBuilderTextField(
+                    focusNode: focusUserName,
+                    autofocus: true,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (v) {
+                      FocusScope.of(context).requestFocus(focusPhone);
+                      allOrders.lastName = v;
+                    },
                     attribute: "username",
                     validators: [
                       FormBuilderValidators.required(
@@ -613,8 +630,20 @@ class _LastFormState extends State<LastForm> {
                     ),
                   ),
                   child: FormBuilderPhoneField(
+                    focusNode: focusPhone,
+                    textInputAction: TextInputAction.next,
+                    autofocus: true,
+                    onFieldSubmitted: (v) {
+                      FocusScope.of(context).requestFocus(focusAddres);
+                      allOrders.lastName = v;
+                    },
+                    onEditingComplete: () {
+                      FocusScope.of(context).requestFocus(focusAddres);
+                    },
+                    onChanged: (v) {
+                      allOrders.lastPhone = v;
+                    },
                     countryFilterByIsoCode: ['KW'],
-                    initialValue: 'KW',
                     defaultSelectedCountryIsoCode: "KW",
                     attribute: "phone",
                     validators: [
@@ -648,6 +677,13 @@ class _LastFormState extends State<LastForm> {
                     ),
                   ),
                   child: FormBuilderTextField(
+                    focusNode: focusAddres,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (v) {
+                      FocusScope.of(context).requestFocus(focusImage);
+                      allOrders.lastAddres = v;
+                    },
+                    autofocus: true,
                     attribute: "address",
                     validators: [
                       FormBuilderValidators.required(
@@ -758,6 +794,9 @@ class _LastFormState extends State<LastForm> {
                       )
                     ],
                     attribute: "payway",
+                    onChanged: (v) {
+                      allOrders.lastPayment = v;
+                    },
                     validators: [
                       FormBuilderValidators.required(
                           errorText: "هذا الحقل مطلوب")
@@ -793,26 +832,101 @@ class _LastFormState extends State<LastForm> {
                       if (allOrders.checkPromoOnce == false) {
                         allOrders.promocodes.forEach((element) {
                           if (code == element.name) {
-                            allOrders.selectedPromo = element.amount;
+                            int theNum = int.parse(allOrders.theGoldData.price);
+                            List<String> ranges = element.range.split("-");
+                            print(
+                                "the range  ${ranges[0]} : ${ranges[1]}  / the num : $theNum");
+                            if (0 <= theNum && theNum <= 5000) {
+                              allOrders.selectedPromo =
+                                  double.parse(element.amount[0]);
 
-                            allOrders.totalPrice -= element.amount;
-                            allOrders.checkPromoOnce = true;
-                            print("promocode is RIGHT");
-                            FocusScope.of(context)
-                                .requestFocus(new FocusNode());
-                            Scaffold.of(context).removeCurrentSnackBar();
-                            Scaffold.of(context).showSnackBar(new SnackBar(
-                              content: new Text(
-                                "البروموكود صحيح ",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16.0,
+                              allOrders.totalPrice -=
+                                  double.parse(element.amount[0]);
+                              allOrders.checkPromoOnce = true;
+
+                              print("promocode is RIGHT");
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              Scaffold.of(context).removeCurrentSnackBar();
+                              Scaffold.of(context).showSnackBar(new SnackBar(
+                                content: new Text(
+                                  "البروموكود صحيح ",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                  ),
                                 ),
-                              ),
-                              backgroundColor: Colors.blue,
-                              duration: Duration(seconds: 3),
-                            ));
+                                backgroundColor: Colors.blue,
+                                duration: Duration(seconds: 3),
+                              ));
+                            } else if ((5001 <= theNum && theNum <= 10000)) {
+                              allOrders.selectedPromo =
+                                  double.parse(element.amount[1]);
+
+                              allOrders.totalPrice -=
+                                  double.parse(element.amount[1]);
+                              allOrders.checkPromoOnce = true;
+
+                              print("promocode is RIGHT");
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              Scaffold.of(context).removeCurrentSnackBar();
+                              Scaffold.of(context).showSnackBar(new SnackBar(
+                                content: new Text(
+                                  "البروموكود صحيح ",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                                backgroundColor: Colors.blue,
+                                duration: Duration(seconds: 3),
+                              ));
+                            } else if ((10001 <= theNum &&
+                                theNum <= 100000000000)) {
+                              allOrders.selectedPromo =
+                                  double.parse(element.amount[2]);
+
+                              allOrders.totalPrice -=
+                                  double.parse(element.amount[2]);
+                              allOrders.checkPromoOnce = true;
+
+                              print("promocode is RIGHT");
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              Scaffold.of(context).removeCurrentSnackBar();
+                              Scaffold.of(context).showSnackBar(new SnackBar(
+                                content: new Text(
+                                  "البروموكود صحيح ",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                                backgroundColor: Colors.blue,
+                                duration: Duration(seconds: 3),
+                              ));
+                            } else {
+                              print("promocode is RIGHT but price is low");
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              Scaffold.of(context).removeCurrentSnackBar();
+                              Scaffold.of(context).showSnackBar(new SnackBar(
+                                content: new Text(
+                                  "البروموكود صحيح لكن سعر السيارة قليل ",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                                backgroundColor: Colors.blue,
+                                duration: Duration(seconds: 3),
+                              ));
+                            }
                           } else {
                             print("promocode is WRONG ");
                           }
@@ -846,12 +960,10 @@ class _LastFormState extends State<LastForm> {
                   ),
                   child: FormBuilderCheckbox(
                     attribute: 'accept_terms',
-                    label: Text(
-                        "اوافق على شروط واحكام تطبيق ماي تامين"),
+                    label: Text("اوافق على شروط واحكام تطبيق ماي تامين"),
                     validators: [
                       FormBuilderValidators.requiredTrue(
-                        errorText:
-                            "يجب عليك قبول الشروط والاحكام للموافقة",
+                        errorText: "يجب عليك قبول الشروط والاحكام للموافقة",
                       ),
                     ],
                   ),
@@ -952,119 +1064,149 @@ class _LastFormState extends State<LastForm> {
                 onPressed: () {
                   //showInSnackBar("يرجى الانتظار", context);
                   //
-
-                  if (_fbKey.currentState.saveAndValidate()) {
-                    setState(() {
-                      print("true");
-                      isLoading = true;
-                    });
-                    allOrders.theLastForm = LastInfoForm(
-                      name: _fbKey.currentState.value['username'],
-                      phoneNumber:
-                          int.parse(_fbKey.currentState.value['phone']),
-                      address: _fbKey.currentState.value['address'],
-                      image1: _fbKey.currentState.value['carImage'],
-                      image2: _fbKey.currentState.value['idImage'],
-                      payment: _fbKey.currentState.value['payway'],
-                      promocode: _fbKey.currentState.value['copone'],
-                    );
-                    //print(allOrders.theLastForm.name);
-                    // print(allOrders.theGoldData.carModel);
-                    // print( _fbKey.currentState.value['carImage'][0]);
-
-                    List<dynamic> files = _fbKey.currentState.value['carImage'];
-                    List<dynamic> files2 = _fbKey.currentState.value['idImage'];
-
-                    if (rememberMe == true) {
-                      addon1.add("خدمة السيارة البديلة");
-
-                      addon1.add(dropdownValue2);
-
-                      addon1.add(dropdownValue);
-                    }
-                    if (rememberMe2 == true) {
-                      addons.add("خدمة عدم حق الرجوع");
-                    }
-                    if (rememberMe3 == true) {
-                      addons.add("خدمة المساعدة على الطريق");
-                    }
-                    DateFormat dateFormat = DateFormat("yyyy-MM-dd");
-                    String stringDate =
-                        dateFormat.format(allOrders.theGoldData.startDate);
-                    allOrders
-                        .uploadGold(
-                      file: files,
-                      file2: files2,
-                      userId: Registration.userId.toString(),
-                      carModel: allOrders.theGoldData.carModel,
-                      carType: allOrders.theGoldData.carType,
-                      yearOfMan: allOrders.theGoldData.yearOfManu,
-                      insurancePrice: allOrders.theGoldData.price,
-                      price: allOrders.totalPrice.toString(),
-                      howManyYears: allOrders.theGoldData.howManyYears,
-                      startDate: stringDate,
-                      selectedCompany: allOrders.selectedCompany.name_english,
-                      addon1: addon1,
-                      addons: addons,
-                      name: allOrders.theLastForm.name,
-                      phoneNumber: allOrders.theLastForm.phoneNumber.toString(),
-                      address: allOrders.theLastForm.address,
-                      payment: allOrders.theLastForm.payment,
-                      promocode: allOrders.theLastForm.promocode,
-                    )
-                        .then((value) {
-                      setState(() {
-                        isLoading = false;
-                      });
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text("تم الطلب بنجاح"),
-                            content: Text(
-                              "رقم الطلب هو ${allOrders.lastOrderId} يمكنك معرفة اخر الطلبات من الصفحة الشخصية",
-                              textAlign: TextAlign.center,
+                  if (Registration.isLoginGuest == true) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("يرجى التسجيل"),
+                          content: Text(
+                            "انت الان مشترك كضيف يرجى تسجيل حساب جديد لامكانية عمل طلب للخدمة",
+                            textAlign: TextAlign.center,
+                          ),
+                          elevation: 2,
+                          actions: [
+                            FlatButton(
+                              child: Text("حسنا"),
+                              color: Theme.of(context).primaryColor,
+                              textColor: Colors.white,
+                              onPressed: () {
+                                Navigator.of(context).pushNamed(
+                                  MainScreen.routeName, // arguments: news
+                                );
+                              },
                             ),
-                            elevation: 2,
-                            actions: [
-                              FlatButton(
-                                child: Text("حسنا"),
-                                color: Theme.of(context).primaryColor,
-                                textColor: Colors.white,
-                                onPressed: () {
-                                  Navigator.of(context).pushNamed(
-                                    MainScreen.routeName, // arguments: news
-                                  );
-                                },
-                              ),
-                            ],
-                          );
-                        },
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    if (_fbKey.currentState.saveAndValidate()) {
+                      setState(() {
+                        print("true");
+                        isLoading = true;
+                      });
+                      allOrders.theLastForm = LastInfoForm(
+                        name: _fbKey.currentState.value['username'],
+                        phoneNumber:
+                            int.parse(_fbKey.currentState.value['phone']),
+                        address: _fbKey.currentState.value['address'],
+                        image1: _fbKey.currentState.value['carImage'],
+                        image2: _fbKey.currentState.value['idImage'],
+                        payment: _fbKey.currentState.value['payway'],
+                        promocode: _fbKey.currentState.value['copone'],
                       );
-                      // FocusScope.of(context).requestFocus(new FocusNode());
-                      // Scaffold.of(context).removeCurrentSnackBar();
-                      // Scaffold.of(context).showSnackBar(new SnackBar(
-                      //   action: SnackBarAction(
-                      //     label: "ok",
-                      //     textColor: Colors.white,
-                      //     onPressed: () {
-                      //       Navigator.of(context).pushNamed(
-                      //         MainScreen.routeName, // arguments: news
-                      //       );
-                      //     },
-                      //   ),
-                      //   content: new Text(
-                      //     "تم تسجيل الطلب",
-                      //     textAlign: TextAlign.center,
-                      //     style: TextStyle(
-                      //       color: Colors.white,
-                      //       fontSize: 16.0,
-                      //     ),
-                      //   ),
-                      //   backgroundColor: Colors.blue,
-                      //   duration: Duration(seconds: 15),
-                      // ));
-                    });
+                      //print(allOrders.theLastForm.name);
+                      // print(allOrders.theGoldData.carModel);
+                      // print( _fbKey.currentState.value['carImage'][0]);
+
+                      List<dynamic> files =
+                          _fbKey.currentState.value['carImage'];
+                      List<dynamic> files2 =
+                          _fbKey.currentState.value['idImage'];
+
+                      if (rememberMe == true) {
+                        addon1.add("خدمة السيارة البديلة");
+
+                        addon1.add(dropdownValue2);
+
+                        addon1.add(dropdownValue);
+                      }
+                      if (rememberMe2 == true) {
+                        addons.add("خدمة عدم حق الرجوع");
+                      }
+                      if (rememberMe3 == true) {
+                        addons.add("خدمة المساعدة على الطريق");
+                      }
+                      DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+                      String stringDate =
+                          dateFormat.format(allOrders.theGoldData.startDate);
+                      allOrders
+                          .uploadGold(
+                        file: files,
+                        file2: files2,
+                        userId: Registration.userId.toString(),
+                        carModel: allOrders.theGoldData.carModel,
+                        carType: allOrders.theGoldData.carType,
+                        yearOfMan: allOrders.theGoldData.yearOfManu,
+                        insurancePrice: allOrders.theGoldData.price,
+                        price: allOrders.totalPrice.toString(),
+                        howManyYears: allOrders.theGoldData.howManyYears,
+                        startDate: stringDate,
+                        selectedCompany: allOrders.selectedCompany.name_english,
+                        addon1: addon1,
+                        addons: addons,
+                        name: allOrders.theLastForm.name,
+                        phoneNumber:
+                            allOrders.theLastForm.phoneNumber.toString(),
+                        address: allOrders.theLastForm.address,
+                        payment: allOrders.theLastForm.payment,
+                        promocode: allOrders.theLastForm.promocode,
+                      )
+                          .then((value) {
+                        setState(() {
+                          isLoading = false;
+                        });
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("تم الطلب بنجاح"),
+                              content: Text(
+                                "رقم الطلب هو ${allOrders.lastOrderId} يمكنك معرفة اخر الطلبات من الصفحة الشخصية",
+                                textAlign: TextAlign.center,
+                              ),
+                              elevation: 2,
+                              actions: [
+                                FlatButton(
+                                  child: Text("حسنا"),
+                                  color: Theme.of(context).primaryColor,
+                                  textColor: Colors.white,
+                                  onPressed: () {
+                                    Navigator.of(context).pushNamed(
+                                      MainScreen.routeName, // arguments: news
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        // FocusScope.of(context).requestFocus(new FocusNode());
+                        // Scaffold.of(context).removeCurrentSnackBar();
+                        // Scaffold.of(context).showSnackBar(new SnackBar(
+                        //   action: SnackBarAction(
+                        //     label: "ok",
+                        //     textColor: Colors.white,
+                        //     onPressed: () {
+                        //       Navigator.of(context).pushNamed(
+                        //         MainScreen.routeName, // arguments: news
+                        //       );
+                        //     },
+                        //   ),
+                        //   content: new Text(
+                        //     "تم تسجيل الطلب",
+                        //     textAlign: TextAlign.center,
+                        //     style: TextStyle(
+                        //       color: Colors.white,
+                        //       fontSize: 16.0,
+                        //     ),
+                        //   ),
+                        //   backgroundColor: Colors.blue,
+                        //   duration: Duration(seconds: 15),
+                        // ));
+                      });
+                    }
                   }
                 },
               ),

@@ -48,7 +48,11 @@ class _NewsHomeTemplateState extends State<NewsHomeTemplate> {
                                 children: <Widget>[
                                   InkWell(
                                     onTap: () {
-                                      widget.pageController.jumpToPage(1);
+                                      if (Languages.selectedLanguage == 0) {
+                                        widget.pageController.jumpToPage(1);
+                                      } else {
+                                        widget.pageController.jumpToPage(2);
+                                      }
                                     },
                                     child: Row(
                                       children: <Widget>[
@@ -209,7 +213,11 @@ class Template extends StatelessWidget {
                           ? <Widget>[
                               InkWell(
                                 onTap: () {
-                                  pageController.jumpToPage(1);
+                                  if (Languages.selectedLanguage == 0) {
+                                    pageController.jumpToPage(1);
+                                  } else {
+                                    pageController.jumpToPage(2);
+                                  }
                                 },
                                 child: Row(
                                   children: <Widget>[
@@ -255,7 +263,11 @@ class Template extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () {
-                                  pageController.jumpToPage(1);
+                                  if (Languages.selectedLanguage == 0) {
+                                    pageController.jumpToPage(1);
+                                  } else {
+                                    pageController.jumpToPage(2);
+                                  }
                                 },
                                 child: Row(
                                   children: <Widget>[

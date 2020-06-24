@@ -60,41 +60,42 @@ class _NewsScreenState extends State<NewsScreen> {
                                 if (authResultSnap.connectionState ==
                                     ConnectionState.waiting) {
                                   return Shimmer.fromColors(
-                                      baseColor: Color(0xFFebeff2),
-                                      highlightColor:
-                                          Colors.grey.withOpacity(0.2),
-                                      period: Duration(milliseconds: 300),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(
-                                            height: 335,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1.1,
-                                            decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .canvasColor,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(32))),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            height: 335,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1.1,
-                                            decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .canvasColor,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(32))),
-                                          ),
-                                        ],
-                                      ));
+                                    baseColor: Color(0xFFebeff2),
+                                    highlightColor:
+                                        Colors.grey.withOpacity(0.2),
+                                    period: Duration(milliseconds: 300),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          height: 335,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.1,
+                                          decoration: BoxDecoration(
+                                              color:
+                                                  Theme.of(context).canvasColor,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(32))),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Container(
+                                          height: 335,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.1,
+                                          decoration: BoxDecoration(
+                                              color:
+                                                  Theme.of(context).canvasColor,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(32))),
+                                        ),
+                                      ],
+                                    ),
+                                  );
                                 } else if (authResultSnap.hasError) {
                                   print(authResultSnap.error);
                                   return RaisedButton(

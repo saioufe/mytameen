@@ -125,6 +125,7 @@ class Languages extends ChangeNotifier {
       'الخدمات للفئة',
       'Category services',
     ],
+
   };
   static int selectedLanguage = 0;
   Future<void> setLangClicker() async {

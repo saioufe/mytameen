@@ -49,7 +49,7 @@ class _OffersPressedScreenState extends State<OffersPressedScreen> {
                     placeholder: AssetImage('assets/images/placeholder.png'),
                     height: MediaQuery.of(context).size.height * 0.35,
                     image: NetworkImage(
-                        "${AllProvider.hostName}/images/posts/${newsData.image}"),
+                        "${AllProvider.hostName}/images/offers/${newsData.image}"),
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_tameen/models/companies.dart';
+import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/providers/ordering.dart';
 import 'package:provider/provider.dart';
 
@@ -7,7 +8,13 @@ class CompanyTemplate extends StatefulWidget {
   final PageController c;
   final Companies company;
   final bool isLast;
-  CompanyTemplate({this.c, this.company, this.isLast});
+  final bool isNotSpical;
+  CompanyTemplate({
+    this.c,
+    this.company,
+    this.isLast,
+    this.isNotSpical = false,
+  });
   @override
   _CompanyTemplateState createState() => _CompanyTemplateState();
 }
@@ -16,7 +23,6 @@ class _CompanyTemplateState extends State<CompanyTemplate> {
   @override
   Widget build(BuildContext context) {
     final allOrder = Provider.of<Ordering>(context, listen: false);
-
     return Card(
       semanticContainer: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -46,15 +52,25 @@ class _CompanyTemplateState extends State<CompanyTemplate> {
                   margin: EdgeInsets.all(10),
                   width: 200,
                   child: Center(
-                    child: Text(
-                      widget.company.name_english,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'tajawal',
-                          fontSize: 19,
-                          color: Theme.of(context).bottomAppBarColor,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    child: Languages.selectedLanguage == 1
+                        ? Text(
+                            widget.company.name_english,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontFamily: 'tajawal',
+                                fontSize: 19,
+                                color: Theme.of(context).bottomAppBarColor,
+                                fontWeight: FontWeight.bold),
+                          )
+                        : Text(
+                            widget.company.name_arabic,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontFamily: 'tajawal',
+                                fontSize: 19,
+                                color: Theme.of(context).bottomAppBarColor,
+                                fontWeight: FontWeight.bold),
+                          ),
                   ),
                 ),
               ],
@@ -80,29 +96,35 @@ class _CompanyTemplateState extends State<CompanyTemplate> {
                     ],
                   ),
                 ),
-                FlatButton(
-                  color: Theme.of(context).primaryColor,
-                  child: Text(
-                    "المميزات",
-                    style:
-                        TextStyle(fontFamily: 'tajawal', color: Colors.white),
-                  ),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("تفاصيل الشركة"),
-                          content: Text(
-                            widget.company.toc_arabic,
-                            textAlign: TextAlign.center,
-                          ),
-                          actions: [],
-                        );
-                      },
-                    );
-                  },
-                ),
+                widget.isNotSpical == false
+                    ? FlatButton(
+                        color: Theme.of(context).primaryColor,
+                        child: Text(
+                          "المميزات",
+                          style: TextStyle(
+                              fontFamily: 'tajawal', color: Colors.white),
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("تفاصيل الشركة"),
+                                content: SingleChildScrollView(
+                                  child: Text(
+                                    widget.company.toc_arabic,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                actions: [],
+                              );
+                            },
+                          );
+                        },
+                      )
+                    : SizedBox(
+                        width: 0,
+                      ),
                 widget.isLast == false
                     ? FlatButton(
                         color: Theme.of(context).primaryColor,

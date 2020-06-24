@@ -60,7 +60,7 @@ class Template extends StatelessWidget {
                 tag: offers.id,
                 child: FadeInImage(
                   placeholder: AssetImage('assets/images/placeholder.png'),
-                  height: MediaQuery.of(context).size.height * 0.35,
+                  //height: MediaQuery.of(context).size.height * 0.35,
                   image: NetworkImage(
                       "${AllProvider.hostName}/images/offers/${offers.image}"),
                   fit: BoxFit.cover,

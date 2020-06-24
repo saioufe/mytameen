@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:my_tameen/providers/ordering.dart';
 import 'package:my_tameen/widgets/addon-template.dart';
 import 'package:my_tameen/widgets/companies.dart';
+import 'package:my_tameen/widgets/last-form-sea.dart';
 import 'package:my_tameen/widgets/last-form.dart';
 import 'package:provider/provider.dart';
 
 import 'company-template.dart';
 
-class LastPageOrder extends StatefulWidget {
+class LastPageOrderSea extends StatefulWidget {
   final PageController c;
-  LastPageOrder(this.c);
+  LastPageOrderSea(this.c);
   @override
-  _LastPageOrderState createState() => _LastPageOrderState();
+  _LastPageOrderSeaState createState() => _LastPageOrderSeaState();
 }
 
-class _LastPageOrderState extends State<LastPageOrder> {
+class _LastPageOrderSeaState extends State<LastPageOrderSea> {
   @override
   Widget build(BuildContext context) {
     final allOrder = Provider.of<Ordering>(context, listen: false);
@@ -28,7 +29,7 @@ class _LastPageOrderState extends State<LastPageOrder> {
             company: allOrder.selectedCompany,
             isLast: true,
           ),
-          LastForm(),
+          LastFormSea(),
           SizedBox(
             height: 20,
           ),

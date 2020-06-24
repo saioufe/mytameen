@@ -180,18 +180,18 @@ class AllProvider extends ChangeNotifier {
     });
   }
 
-
   List<ContactUs> _contact = [];
   List<ContactUs> get contact {
     return _contact;
   }
+
   List data6 = [];
   List<ContactUs> loadedContact;
   List<dynamic> newsDataOffline6;
-  Future<void> fetchDataContact(String category) async {
-    await http.post("${AllProvider.hostName}/get-contact-flutter.php", body: {
-      "category": category,
-    }).then((response) {
+  Future<void> fetchDataContact() async {
+    await http
+        .post("${AllProvider.hostName}/get-contact-flutter.php")
+        .then((response) {
       data6 = json.decode(response.body);
       //print(response.body);
       final List<ContactUs> loadedContact = [];
@@ -201,9 +201,7 @@ class AllProvider extends ChangeNotifier {
       newsDataOffline6 = data6;
       data6.forEach((newsId) {
         loadedContact.add(ContactUs(
-          phone1: newsId['phone1'],
-          phone2: newsId['phone2'],
-          email: newsId['email'],
+          value: newsId['value'],
         ));
       });
       _contact = loadedContact;

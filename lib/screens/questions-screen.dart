@@ -33,14 +33,21 @@ class QuestionsScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Column(
-              children: allQuestions.questions.map((item) {
-            return QuestionWidget(
-              question: item.question,
-              answer: item.answer,
-            );
-          }).toList()),
-        ),
+            child: Languages.selectedLanguage == 0
+                ? Column(
+                    children: allQuestions.questions.map((item) {
+                    return QuestionWidget(
+                      question: item.question,
+                      answer: item.answer,
+                    );
+                  }).toList())
+                : Column(
+                    children: allQuestions.questions2.map((item) {
+                    return QuestionWidget(
+                      question: item.question,
+                      answer: item.answer,
+                    );
+                  }).toList())),
       ),
     );
   }

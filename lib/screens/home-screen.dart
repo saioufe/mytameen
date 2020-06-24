@@ -103,6 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
           height: 30,
         ),
       );
+
       listViews.add(
         StayHomeWidget(
           animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
@@ -110,21 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
               curve:
                   Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
           animationController: widget.animationController,
-        ),
-      );
-      listViews.add(
-        SizedBox(
-          height: 30,
-        ),
-      );
-      listViews.add(
-        NewsHomeTemplate(
-          animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-              parent: widget.animationController,
-              curve:
-                  Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
-          animationController: widget.animationController,
-          pageController: widget.pagecontroll,
         ),
       );
       listViews.add(
@@ -142,6 +128,22 @@ class _HomeScreenState extends State<HomeScreen> {
           pageController: widget.pagecontroll,
         ),
       );
+      listViews.add(
+        SizedBox(
+          height: 30,
+        ),
+      );
+      listViews.add(
+        NewsHomeTemplate(
+          animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+              parent: widget.animationController,
+              curve:
+                  Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
+          animationController: widget.animationController,
+          pageController: widget.pagecontroll,
+        ),
+      );
+
       listViews.add(
         SizedBox(
           height: 30,
@@ -179,6 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final lang = Provider.of<Languages>(context, listen: false);
+    final prov = Provider.of<AllProvider>(context, listen: false);
 
     Provider.of<Registration>(context, listen: false).googleFirstMove();
     Provider.of<Registration>(context, listen: false).checkLogin();
@@ -236,7 +239,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               lang.saveLanguageIndex(0);
                                               Languages.selectedLanguage = 0;
                                               setState(() {});
+                                              widget.pagecontroll.jumpToPage(3);
                                               Navigator.of(ctx).pop();
+                                              
                                             },
                                             child: Row(
                                               mainAxisAlignment:
@@ -276,6 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               lang.saveLanguageIndex(1);
                                               Languages.selectedLanguage = 1;
                                               Navigator.of(ctx).pop();
+                                              widget.pagecontroll.jumpToPage(0);
                                             },
                                             child: Row(
                                               mainAxisAlignment:
@@ -353,32 +359,59 @@ class _HomeScreenState extends State<HomeScreen> {
                     showDialog(
                       context: context,
                       builder: (_) => Container(
-                        height: 600,
-                        child: NetworkGiffyDialog(
-                          image: Image.asset(
-                            "assets/images/gif.gif",
-                            fit: BoxFit.cover,
-                          ),
-                          title: Text(
-                              lang.translation['contactuss']
-                                  [Languages.selectedLanguage],
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 15.0, fontWeight: FontWeight.w600)),
-                          description: Text(
-                            '07803043333 8923913141 \n email@test.com',
-                            textAlign: TextAlign.center,
-                          ),
-                          entryAnimation: EntryAnimation.TOP,
-                          onOkButtonPressed: () {},
-                          onlyCancelButton: true,
-                          buttonCancelColor: Theme.of(context).primaryColor,
-                          buttonCancelText: Text(
-                            "OK",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
+                          height: 600,
+                          child: FutureBuilder(
+                              future: prov.fetchDataContact(),
+                              builder: (ctx, authResultSnap) {
+                                if (authResultSnap.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Container(
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        backgroundColor: Colors.white,
+                                      ),
+                                    ),
+                                  );
+                                } else if (authResultSnap.hasError) {
+                                  print(authResultSnap.error);
+                                  return RaisedButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        //other.getUserLocation();
+                                      });
+                                    },
+                                    child: Text("تفقد من الاتصال بلانترنت",
+                                        style: TextStyle(color: Colors.black)),
+                                  );
+                                } else {
+                                  return NetworkGiffyDialog(
+                                    image: Image.asset(
+                                      "assets/images/gif.gif",
+                                      fit: BoxFit.cover,
+                                    ),
+                                    title: Text(
+                                        lang.translation['contactuss']
+                                            [Languages.selectedLanguage],
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.w600)),
+                                    description: Text(
+                                      '${prov.contact[1].value} ${prov.contact[0].value} \n ${prov.contact[2].value}',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    entryAnimation: EntryAnimation.TOP,
+                                    onOkButtonPressed: () {},
+                                    onlyCancelButton: true,
+                                    buttonCancelColor:
+                                        Theme.of(context).primaryColor,
+                                    buttonCancelText: Text(
+                                      "حسنا",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  );
+                                }
+                              })),
                     );
                   },
                   child: new SettingBar(

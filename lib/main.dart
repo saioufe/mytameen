@@ -87,15 +87,16 @@ void main() async {
           ),
         ),
       ),
-      home: MainScreen(),
-      // SplashScreen.navigate(
-      //   name: 'assets/images/MyTamenSplash.flr',
-      //   next: (_) => MainScreen(),
-      //   until: () => Future.delayed(Duration(seconds: 1)),
-      //   startAnimation: 'intro',
-      //   backgroundColor: Colors.white,
-      //   endAnimation: '1',
-      // ),
+      home: 
+      //MainScreen(),
+      SplashScreen.navigate(
+        name: 'assets/images/MyTamenSplash.flr',
+        next: (_) => MainScreen(),
+        until: () => Future.delayed(Duration(seconds: 1)),
+        startAnimation: 'intro',
+        backgroundColor: Colors.white,
+        endAnimation: '1',
+      ),
       routes: {
         NewsPressedScreen.routeName: (ctx) => NewsPressedScreen(),
         OffersPressedScreen.routeName: (ctx) => OffersPressedScreen(),

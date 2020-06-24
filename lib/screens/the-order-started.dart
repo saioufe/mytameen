@@ -4,8 +4,17 @@ import 'package:intl/intl.dart';
 import 'package:my_tameen/models/categories.dart';
 import 'package:my_tameen/providers/allProvider.dart';
 import 'package:my_tameen/widgets/companies.dart';
+import 'package:my_tameen/widgets/companiesForOther.dart';
+import 'package:my_tameen/widgets/companiesSea.dart';
+import 'package:my_tameen/widgets/companiesTravel.dart';
+import 'package:my_tameen/widgets/forOther-form.dart';
 import 'package:my_tameen/widgets/gold-form.dart';
+import 'package:my_tameen/widgets/last-page-order-forOther.dart';
+import 'package:my_tameen/widgets/last-page-order-sea.dart';
+import 'package:my_tameen/widgets/last-page-order-travel.dart';
 import 'package:my_tameen/widgets/last-page-order.dart';
+import 'package:my_tameen/widgets/sea-form.dart';
+import 'package:my_tameen/widgets/travel-form.dart';
 import 'package:provider/provider.dart';
 
 class TheStartOrder extends StatefulWidget {
@@ -16,12 +25,14 @@ class TheStartOrder extends StatefulWidget {
 }
 
 class _TheStartOrderState extends State<TheStartOrder> {
-  ScrollController c = new PageController();
+  PageController c = new PageController();
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
 
   String thePage = "البيانات";
+  int pageNumber = 0;
 
   void setThePageSetUppers(int page) {
+    pageNumber = page;
     setState(() {
       if (page == 0) {
         thePage = "البيانات";
@@ -37,6 +48,27 @@ class _TheStartOrderState extends State<TheStartOrder> {
   Widget build(BuildContext context) {
     final theCat = ModalRoute.of(context).settings.arguments as Categories;
     final appot = Provider.of<AllProvider>(context, listen: false);
+
+    List<Widget> theGoldCarsWidget = [
+      GoldForm(c),
+      CompaniesWidget(c),
+      LastPageOrder(c),
+    ];
+    List<Widget> theForOtherCarsWidget = [
+      ForOtherForm(c),
+      CompaniesWidgetForOther(c),
+      LastPageOrderForOther(c),
+    ];
+    List<Widget> theSeaWidget = [
+      SeaForm(c),
+      CompaniesWidgetSea(c),
+      LastPageOrderSea(c),
+    ];
+    List<Widget> theTravelWidget = [
+      TravelForm(c),
+      CompaniesWidgetTravel(c),
+      LastPageOrderTravel(c),
+    ];
 
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
@@ -65,7 +97,11 @@ class _TheStartOrderState extends State<TheStartOrder> {
                 children: <Widget>[
                   FlatButton(
                     child: Text("البيانات"),
-                    onPressed: thePage == "البيانات" ? () {} : null,
+                    onPressed: pageNumber >= 0
+                        ? () {
+                            c.jumpToPage(0);
+                          }
+                        : null,
                   ),
                   SizedBox(
                     width: 20,
@@ -76,7 +112,11 @@ class _TheStartOrderState extends State<TheStartOrder> {
                   ),
                   FlatButton(
                     child: Text("الشركة"),
-                    onPressed: thePage == "الشركة" ? () {} : null,
+                    onPressed: pageNumber >= 1
+                        ? () {
+                            c.jumpToPage(1);
+                          }
+                        : null,
                   ),
                   SizedBox(
                     width: 20,
@@ -87,7 +127,11 @@ class _TheStartOrderState extends State<TheStartOrder> {
                   ),
                   FlatButton(
                     child: Text("معلومات"),
-                    onPressed: thePage == "معلومات" ? () {} : null,
+                    onPressed: pageNumber >= 2
+                        ? () {
+                            c.jumpToPage(2);
+                          }
+                        : null,
                   ),
                 ],
               ),
@@ -97,11 +141,15 @@ class _TheStartOrderState extends State<TheStartOrder> {
                   scrollDirection: Axis.horizontal,
                   controller: c,
                   physics: new NeverScrollableScrollPhysics(),
-                  children: <Widget>[
-                    GoldForm(c),
-                    CompaniesWidget(c),
-                    LastPageOrdert(c),
-                  ],
+                  children: theCat.title == "تأمين السيارت الشامل ( الذهبي )"
+                      ? theGoldCarsWidget
+                      : theCat.title == "التأمين البحري"
+                          ? theSeaWidget
+                          : theCat.title == "تأمين السفر"
+                              ? theTravelWidget
+                              : theCat.title == "تأمين السيارت ضد الغير"
+                                  ? theForOtherCarsWidget
+                                  : theGoldCarsWidget,
                   onPageChanged: (page) {
                     setThePageSetUppers(page);
                   },

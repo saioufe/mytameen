@@ -281,7 +281,11 @@ class Template extends StatelessWidget {
                             ? <Widget>[
                                 InkWell(
                                   onTap: () {
-                                    pageController.jumpToPage(1);
+                                    if (Languages.selectedLanguage == 0) {
+                                      pageController.jumpToPage(2);
+                                    } else {
+                                      pageController.jumpToPage(1);
+                                    }
                                   },
                                   child: Row(
                                     children: <Widget>[

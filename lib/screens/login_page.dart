@@ -414,6 +414,23 @@ class _LoginPageState extends State<LoginPage>
               ],
             ),
           ),
+          InkWell(
+            onTap: () {
+              Registration.isLoginGuest = true;
+              Registration.isLogin = true;
+              widget.pagecontroll.jumpToPage(3);
+            },
+            child: Padding(
+              padding: EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Text(
+                "التسجيل كضيف",
+                style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -690,6 +707,23 @@ class _LoginPageState extends State<LoginPage>
                   height: 1.0,
                 ),
               ],
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              Registration.isLoginGuest = true;
+              Registration.isLogin = true;
+              widget.pagecontroll.jumpToPage(3);
+            },
+            child: Padding(
+              padding: EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Text(
+                "التسجيل كضيف",
+                style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
           Row(

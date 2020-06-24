@@ -16,6 +16,7 @@ class Registration extends ChangeNotifier {
   static String theMethodRegistered;
 
   static bool isLogin = false;
+  static bool isLoginGuest = false;
   static String userName;
   static int userId;
   GoogleSignInAccount currentUser;

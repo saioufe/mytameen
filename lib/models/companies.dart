@@ -28,6 +28,21 @@ class Companies {
   final String large_20;
   final String not_allow;
   final String help_allways;
+  final String jeep_forOther;
+  final String salon_forOther;
+  final String other_forOther;
+  final String pickup_forOther;
+  final String boats_100000;
+  final String boats_50000;
+  final String boats_30000;
+  final String boats_10000;
+  final String jetski_10000;
+  final String travel_single_silver;
+  final String travel_single_gold;
+  final String travel_single_platinum;
+  final String travel_family_silver;
+  final String travel_family_gold;
+  final String travel_family_platinum;
 
   Companies({
     this.id,
@@ -57,5 +72,20 @@ class Companies {
     this.large_20,
     this.not_allow,
     this.help_allways,
+    @required this.jeep_forOther,
+    this.salon_forOther,
+    this.other_forOther,
+    this.pickup_forOther,
+    this.boats_100000,
+    this.boats_50000,
+    this.boats_30000,
+    this.boats_10000,
+    this.jetski_10000,
+    @required this.travel_single_silver,
+    this.travel_single_gold,
+    this.travel_single_platinum,
+    this.travel_family_silver,
+    this.travel_family_platinum,
+    this.travel_family_gold,
   });
 }

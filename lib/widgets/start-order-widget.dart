@@ -26,16 +26,12 @@ class StartOrderWidget extends StatelessWidget {
             transform: new Matrix4.translationValues(
                 0.0, 30 * (1.0 - animation.value), 0.0),
             child: InkWell(
-              onTap: () async {
-                if (Registration.isLogin == false) {
-                  pageController.jumpToPage(0);
-                } else {
-                  final url = "http://www.mytamen.com";
-                  if (await canLaunch(url)) {
-                    await launch(url);
-                  } else {
-                    throw 'Could not launch $url';
-                  }
+              onTap: ()  {
+
+                if(Languages.selectedLanguage == 0){
+                  pageController.jumpToPage(2);
+                }else {
+                  pageController.jumpToPage(1);
                 }
                 //Navigator.of(context).pushNamed(StartTheService.routeName);
               },

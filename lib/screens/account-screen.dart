@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:my_tameen/providers/allProvider.dart';
 import 'package:my_tameen/providers/languages.dart';
 import 'package:my_tameen/providers/registrition.dart';
 import 'package:my_tameen/screens/contactUs-screen.dart';
@@ -32,7 +33,7 @@ class AccountScreen extends StatefulWidget {
 
 class _AccountScreenState extends State<AccountScreen>
     with TickerProviderStateMixin {
-  String appVersion = " v 1.0.0";
+  String appVersion = " v 1.0.1";
   String currencyName;
   List<Widget> listViews = List<Widget>();
   Color notificationColor = Colors.green;
@@ -111,6 +112,7 @@ class _AccountScreenState extends State<AccountScreen>
   Widget getMainData() {
     final lang = Provider.of<Languages>(context, listen: false);
     final regs = Provider.of<Registration>(context, listen: false);
+    final prov = Provider.of<AllProvider>(context, listen: false);
     return SingleChildScrollView(
         controller: scrollController,
         child: Container(
@@ -139,15 +141,25 @@ class _AccountScreenState extends State<AccountScreen>
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: <Widget>[
-                    Text(
-                      Registration.userName,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Registration.isLoginGuest == false
+                        ? Text(
+                            Registration.userName,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : Text(
+                            "Guest",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
                   ],
                 ),
               ),
@@ -198,27 +210,32 @@ class _AccountScreenState extends State<AccountScreen>
                         ),
                       ],
                     ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    MyOrdersScreen.routeName, // arguments: news
-                  );
-                },
-                child: new SettingBar(
-                    lang.translation['myorders'][Languages.selectedLanguage],
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          "4",
-                          style: TextStyle(color: Colors.green, fontSize: 15),
-                        ),
-                        Icon(
-                          Ionicons.md_list_box,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ],
-                    )),
-              ),
+              Registration.isLoginGuest == false
+                  ? InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          MyOrdersScreen.routeName, // arguments: news
+                        );
+                      },
+                      child: new SettingBar(
+                          lang.translation['myorders']
+                              [Languages.selectedLanguage],
+                          Row(
+                            children: <Widget>[
+                              // Text(
+                              //   "4",
+                              //   style: TextStyle(color: Colors.green, fontSize: 15),
+                              // ),
+                              Icon(
+                                Ionicons.md_list_box,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ],
+                          )),
+                    )
+                  : SizedBox(
+                      height: 1,
+                    ),
               InkWell(
                 onTap: () {
                   if (Registration.theMethodRegistered == "1") {
@@ -237,6 +254,10 @@ class _AccountScreenState extends State<AccountScreen>
                             : widget.pagecontroll.jumpToPage(3));
                   } else if (Registration.theMethodRegistered == "3") {
                     regs.signOutEmail(widget.pagecontroll, context);
+                  } else {
+                    Registration.isLoginGuest = false;
+                    Registration.isLogin = false;
+                    widget.pagecontroll.jumpToPage(3);
                   }
                 },
                 child: new SettingBar(
@@ -541,33 +562,60 @@ class _AccountScreenState extends State<AccountScreen>
                       showDialog(
                         context: context,
                         builder: (_) => Container(
-                          height: 600,
-                          child: NetworkGiffyDialog(
-                            image: Image.asset(
-                              "assets/images/gif.gif",
-                              fit: BoxFit.cover,
-                            ),
-                            title: Text(
-                                lang.translation['contactuss']
-                                    [Languages.selectedLanguage],
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w600)),
-                            description: Text(
-                              '07803043333 8923913141 \n email@test.com',
-                              textAlign: TextAlign.center,
-                            ),
-                            entryAnimation: EntryAnimation.TOP,
-                            onOkButtonPressed: () {},
-                            onlyCancelButton: true,
-                            buttonCancelColor: Theme.of(context).primaryColor,
-                            buttonCancelText: Text(
-                              "OK",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
+                            height: 600,
+                            child: FutureBuilder(
+                                future: prov.fetchDataContact(),
+                                builder: (ctx, authResultSnap) {
+                                  if (authResultSnap.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Container(
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          backgroundColor: Colors.white,
+                                        ),
+                                      ),
+                                    );
+                                  } else if (authResultSnap.hasError) {
+                                    print(authResultSnap.error);
+                                    return RaisedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          //other.getUserLocation();
+                                        });
+                                      },
+                                      child: Text("تفقد من الاتصال بلانترنت",
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                    );
+                                  } else {
+                                    return NetworkGiffyDialog(
+                                      image: Image.asset(
+                                        "assets/images/gif.gif",
+                                        fit: BoxFit.cover,
+                                      ),
+                                      title: Text(
+                                          lang.translation['contactuss']
+                                              [Languages.selectedLanguage],
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.w600)),
+                                      description: Text(
+                                        '${prov.contact[1].value} ${prov.contact[0].value} \n ${prov.contact[2].value}',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      entryAnimation: EntryAnimation.TOP,
+                                      onOkButtonPressed: () {},
+                                      onlyCancelButton: true,
+                                      buttonCancelColor:
+                                          Theme.of(context).primaryColor,
+                                      buttonCancelText: Text(
+                                        "حسنا",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    );
+                                  }
+                                })),
                       );
                     },
                     child: new SettingBar(
@@ -665,8 +713,13 @@ class _AccountScreenState extends State<AccountScreen>
                         Icons.star,
                         color: Colors.amber,
                       ),
-                      onRatingUpdate: (rating) {
-                        print(rating);
+                      onRatingUpdate: (rating) async {
+                        final url = "https://play.google.com/store/apps/details?id=com.creativeprojects.mytameen";
+                        if (await canLaunch(url)) {
+                          await launch(url, forceWebView: true);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
                       },
                     ),
                   ),

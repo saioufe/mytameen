@@ -16,24 +16,33 @@ class _GoldFormState extends State<GoldForm> {
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
 
   List<DropdownMenuItem<dynamic>> listOfModels = [];
+  String initialModel = 'دودج';
   String selectedItem = "امريكي";
   void setTheSelectedModel(String selected) {
     setState(() {
       if (selected == "امريكي") {
         selectedItem = "امريكي";
+        initialModel = "دودج";
       } else if (selected == "اسيوي") {
         selectedItem = "اسيوي";
+        initialModel = "تويوتا";
       } else if (selected == "اوربي") {
         selectedItem = "اوربي";
+        initialModel = "اودي";
       } else if (selected == "صيني") {
         selectedItem = "صيني";
       } else if (selected == "رياضي") {
         selectedItem = "رياضي";
       } else if (selected == "وانيت") {
         selectedItem = "وانيت";
-      } 
+      }
     });
   }
+
+  final focusUserName = FocusNode();
+  final focusPhone = FocusNode();
+  final focusAddres = FocusNode();
+  final focusImage = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +72,31 @@ class _GoldFormState extends State<GoldForm> {
           FormBuilder(
             key: _fbKey,
             initialValue: {
-              'startdate': DateTime.now(),
+              'startDate': allOrder.theGoldData != null
+                  ? allOrder.theGoldData.startDate
+                  : DateTime.now(),
+              'carType': allOrder.theGoldData != null
+                  ? allOrder.theGoldData.carType
+                  : "امريكي",
+              // 'CarModel': allOrder.theGoldData != null
+              //     ? allOrder.theGoldData.carModel
+              //     : initialModel,
+              'yearOfManu': allOrder.theGoldData != null
+                  ? allOrder.theGoldData.yearOfManu
+                  : "2020",
+              'price': allOrder.theGoldData != null
+                  ? allOrder.theGoldData.price
+                  : "",
+              'howManyYears': allOrder.theGoldData != null
+                  ? allOrder.theGoldData.howManyYears
+                  : "1",
             },
             autovalidate: true,
             child: Column(
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(top: 10),
+
                   //height: 60,
                   width: 380,
                   padding: EdgeInsets.only(right: 30, left: 30),
@@ -88,29 +115,51 @@ class _GoldFormState extends State<GoldForm> {
                     ),
                   ),
                   child: FormBuilderDropdown(
+                    style: TextStyle(
+                        fontSize: 55,
+                        color: Theme.of(context).bottomAppBarColor),
                     items: [
                       DropdownMenuItem(
-                        child: Text("امريكي"),
+                        child: Container(
+                            child: Text(
+                          "امريكي",
+                          style: TextStyle(fontSize: 20),
+                        )),
                         value: "امريكي",
                       ),
                       DropdownMenuItem(
-                        child: Text("اسيوي"),
+                        child: Text(
+                          "اسيوي",
+                          style: TextStyle(fontSize: 20),
+                        ),
                         value: "اسيوي",
                       ),
                       DropdownMenuItem(
-                        child: Text("اوربي"),
+                        child: Text(
+                          "اوربي",
+                          style: TextStyle(fontSize: 20),
+                        ),
                         value: "اوربي",
                       ),
                       DropdownMenuItem(
-                        child: Text("صيني"),
+                        child: Text(
+                          "صيني",
+                          style: TextStyle(fontSize: 20),
+                        ),
                         value: "صيني",
                       ),
                       DropdownMenuItem(
-                        child: Text("رياضي"),
+                        child: Text(
+                          "رياضي",
+                          style: TextStyle(fontSize: 20),
+                        ),
                         value: "رياضي",
                       ),
                       DropdownMenuItem(
-                        child: Text("وانيت"),
+                        child: Text(
+                          "وانيت",
+                          style: TextStyle(fontSize: 20),
+                        ),
                         value: "وانيت",
                       ),
                     ],
@@ -148,55 +197,94 @@ class _GoldFormState extends State<GoldForm> {
                           ),
                         ),
                         child: FormBuilderDropdown(
+                          style: TextStyle(
+                              fontSize: 55,
+                              color: Theme.of(context).bottomAppBarColor),
                           key: UniqueKey(),
-                          allowClear: true,
+                          isDense: true,
                           items: [
                             DropdownMenuItem(
-                              child: Text("دوج"),
-                              value: "دوج",
+                              child: Text(
+                                "دودج",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              value: "دودج",
                             ),
                             DropdownMenuItem(
-                              child: Text("جي ام سي"),
+                              child: Text(
+                                "جي ام سي",
+                                style: TextStyle(fontSize: 20),
+                              ),
                               value: "جي ام سي",
                             ),
                             DropdownMenuItem(
-                              child: Text("فورد"),
+                              child: Text(
+                                "فورد",
+                                style: TextStyle(fontSize: 20),
+                              ),
                               value: "فورد",
                             ),
                             DropdownMenuItem(
-                              child: Text("شيفروليه"),
+                              child: Text(
+                                "شيفروليه",
+                                style: TextStyle(fontSize: 20),
+                              ),
                               value: "شيفروليه",
                             ),
                             DropdownMenuItem(
-                              child: Text("كرايزلر"),
+                              child: Text(
+                                "كرايزلر",
+                                style: TextStyle(fontSize: 20),
+                              ),
                               value: "كرايزلر",
                             ),
                             DropdownMenuItem(
-                              child: Text("كاديلاك"),
+                              child: Text(
+                                "كاديلاك",
+                                style: TextStyle(fontSize: 20),
+                              ),
                               value: "كاديلاك",
                             ),
                             DropdownMenuItem(
-                              child: Text("همر"),
+                              child: Text(
+                                "همر",
+                                style: TextStyle(fontSize: 20),
+                              ),
                               value: "همر",
                             ),
                             DropdownMenuItem(
-                              child: Text("جيب"),
+                              child: Text(
+                                "جيب",
+                                style: TextStyle(fontSize: 20),
+                              ),
                               value: "جيب",
                             ),
                             DropdownMenuItem(
-                              child: Text("تيسلا"),
+                              child: Text(
+                                "تيسلا",
+                                style: TextStyle(fontSize: 20),
+                              ),
                               value: "تيسلا",
                             ),
                             DropdownMenuItem(
-                              child: Text("لنكولن"),
+                              child: Text(
+                                "لنكولن",
+                                style: TextStyle(fontSize: 20),
+                              ),
                               value: "لنكولن",
                             ),
                             DropdownMenuItem(
-                              child: Text("ميركوري"),
+                              child: Text(
+                                "ميركوري",
+                                style: TextStyle(fontSize: 20),
+                              ),
                               value: "ميركوري",
                             ),
                             DropdownMenuItem(
-                              child: Text("سيارات امريكية اخرى"),
+                              child: Text(
+                                "سيارات امريكية اخرى",
+                                style: TextStyle(fontSize: 20),
+                              ),
                               value: "سيارات امريكية اخرى",
                             ),
                           ],
@@ -231,63 +319,108 @@ class _GoldFormState extends State<GoldForm> {
                               ),
                             ),
                             child: FormBuilderDropdown(
+                              style: TextStyle(
+                                  fontSize: 55,
+                                  color: Theme.of(context).bottomAppBarColor),
                               key: UniqueKey(),
-                              allowClear: true,
+                              isDense: true,
                               items: [
                                 DropdownMenuItem(
-                                  child: Text("تويوتا"),
+                                  child: Text(
+                                    "تويوتا",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "تويوتا",
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("لكزس"),
+                                  child: Text(
+                                    "لكزس",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "لكزس",
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("نيسان"),
+                                  child: Text(
+                                    "نيسان",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "نيسان",
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("هوندا"),
+                                  child: Text(
+                                    "هوندا",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "هوندا",
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("اكورا"),
+                                  child: Text(
+                                    "اكورا",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "اكورا",
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("انفينتي"),
+                                  child: Text(
+                                    "انفينتي",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "انفينتي",
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("ميتسوبيشي"),
+                                  child: Text(
+                                    "ميتسوبيشي",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "ميتسوبيشي",
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("سوزوكي"),
+                                  child: Text(
+                                    "سوزوكي",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "سوزوكي",
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("سوبارو"),
+                                  child: Text(
+                                    "سوبارو",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "سوبارو",
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("مازدا"),
+                                  child: Text(
+                                    "مازدا",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "مازدا",
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("ايسوزو"),
+                                  child: Text(
+                                    "ايسوزو",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "ايسوزو",
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("هيونداي"),
+                                  child: Text(
+                                    "هيونداي",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "هيونداي",
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("كيا"),
+                                  child: Text(
+                                    "كيا",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "كيا",
                                 ),
                                 DropdownMenuItem(
-                                  child: Text("سيارات اسيوية اخرى"),
+                                  child: Text(
+                                    "سيارات اسيوية اخرى",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                   value: "سيارات اسيوية اخرى",
                                 ),
                               ],
@@ -322,47 +455,80 @@ class _GoldFormState extends State<GoldForm> {
                                   ),
                                 ),
                                 child: FormBuilderDropdown(
+                                  style: TextStyle(
+                                      fontSize: 55,
+                                      color:
+                                          Theme.of(context).bottomAppBarColor),
                                   key: UniqueKey(),
-                                  allowClear: true,
                                   items: [
                                     DropdownMenuItem(
-                                      child: Text("اودي"),
+                                      child: Text(
+                                        "اودي",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                       value: "اودي",
                                     ),
                                     DropdownMenuItem(
-                                      child: Text("بي ام دبليو"),
+                                      child: Text(
+                                        "بي ام دبليو",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                       value: "بي ام دبليو",
                                     ),
                                     DropdownMenuItem(
-                                      child: Text("مرسيدس"),
+                                      child: Text(
+                                        "مرسيدس",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                       value: "مرسيدس",
                                     ),
                                     DropdownMenuItem(
-                                      child: Text("فولكس واجن"),
+                                      child: Text(
+                                        "فولكس واجن",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                       value: "فولكس واجن",
                                     ),
                                     DropdownMenuItem(
-                                      child: Text("جاكور"),
+                                      child: Text(
+                                        "جاكور",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                       value: "جاكور",
                                     ),
                                     DropdownMenuItem(
-                                      child: Text("لاندروڤر"),
+                                      child: Text(
+                                        "لاندروڤر",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                       value: "لاندروڤر",
                                     ),
                                     DropdownMenuItem(
-                                      child: Text("ڤولڤو"),
+                                      child: Text(
+                                        "ڤولڤو",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                       value: "ڤولڤو",
                                     ),
                                     DropdownMenuItem(
-                                      child: Text("رينو"),
+                                      child: Text(
+                                        "رينو",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                       value: "رينو",
                                     ),
                                     DropdownMenuItem(
-                                      child: Text("MG"),
+                                      child: Text(
+                                        "MG",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                       value: "MG",
                                     ),
                                     DropdownMenuItem(
-                                      child: Text("سيارات اوربية اخرى"),
+                                      child: Text(
+                                        "سيارات اوربية اخرى",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                       value: "سيارات اوربية اخرى",
                                     ),
                                   ],
@@ -372,7 +538,7 @@ class _GoldFormState extends State<GoldForm> {
                                         errorText: "هذا الحقل مطلوب")
                                   ],
                                   decoration: InputDecoration(
-                                      labelText: "توع السيارة",
+                                      labelText: "نوع السيارة",
                                       labelStyle: TextStyle(fontSize: 18)),
                                 ),
                               )
@@ -402,7 +568,7 @@ class _GoldFormState extends State<GoldForm> {
                                         errorText: "هذا الحقل مطلوب")
                                   ],
                                   decoration: InputDecoration(
-                                      labelText: "توع السيارة",
+                                      labelText: "نوع السيارة",
                                       labelStyle: TextStyle(fontSize: 18)),
                                   textAlign: TextAlign.right,
                                 ),
@@ -495,6 +661,12 @@ class _GoldFormState extends State<GoldForm> {
                     ),
                   ),
                   child: FormBuilderTextField(
+                    // focusNode: focusUserName,
+                    // autofocus: false,
+                    // textInputAction: TextInputAction.next,
+                    // onFieldSubmitted: (v) {
+                    //   FocusScope.of(context).requestFocus(focusPhone);
+                    // },
                     attribute: "price",
                     decoration: InputDecoration(
                         labelText: "سعر السيارة المراد التامين عليه",
@@ -503,7 +675,6 @@ class _GoldFormState extends State<GoldForm> {
                       FormBuilderValidators.required(),
                       FormBuilderValidators.numeric(
                           errorText: "رجاءا ادخل السعر على شكل رقمي"),
-
                     ],
                     textAlign: TextAlign.right,
                   ),
